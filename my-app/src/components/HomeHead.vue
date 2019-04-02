@@ -2,7 +2,7 @@
 	<div>
 		<img src="../assets/guiqie.jpg"/>
 		<p >Zhengxiang Yue</p>
-		<p >Software Engineer. Blogging about tech and life.</p>
+		<p >Software Engineer. Blogging about tech and life. <a href="/">login</a></p>
 		<li><a href="/">vue</a></li>
 		<li><a href="/">js</a></li>
 		<li><a href="/">blockchain</a></li>
