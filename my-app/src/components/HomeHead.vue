@@ -5,7 +5,6 @@
 		<p >Software Engineer. Blogging about tech and life.</p>
 		<li><a href="/">vue</a></li>
 		<li><a href="/">js</a></li>
-		<li><a href="/">node</a></li>
 		<li><a href="/">blockchain</a></li>
 		<li><a href="/">other</a></li>
 	</div>
