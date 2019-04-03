@@ -1,10 +1,8 @@
 <template>
-	<ul>
-		<li>
-			<a href="/">{{title}}</a>
-			<span>(Oct, 2018)</span>
-		</li>
-	</ul>
+	<div>
+		<router-link class="router-link" to="/">{{title}}</router-link>
+		<span>(Oct, 2018)</span>
+	</div>
 </template>
 
 <script>
@@ -17,11 +15,13 @@ export default {
 </script>
 
 <style scoped>
-	ul {
-		list-style-type: none;
-		padding-inline-start: 0px;
-	}
-	li {
+	div {
 		margin-bottom: .8em;
+		padding-left: 2em;
+		padding-right: 2em;
+	}
+	.router-link{
+		color: black;
+		text-decoration: none;
 	}
 </style>

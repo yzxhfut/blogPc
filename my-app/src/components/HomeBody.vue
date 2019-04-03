@@ -53,7 +53,7 @@ export default {
   },
   created() {
 		for(let i = 1 ;i < 100 ; i++){
-			this.posts.push({id:i,title:i+''})
+			this.posts.push({id:i,title:"随机测试"+i})
 		}
   },
   components: {
@@ -70,8 +70,6 @@ export default {
 	@media only screen and (max-width: 600px){
 		.container {
 			width: 100%;
-			padding: 1em;
-			box-sizing: border-box;
 		}
 	}
 	
