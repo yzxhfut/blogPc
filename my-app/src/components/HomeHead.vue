@@ -4,7 +4,7 @@
 		<p >Zhengxiang Yue</p>
 		<p >Software Engineer. Blogging about tech and life. <router-link class="router-link" to="/login">login</router-link></p>
 		<ul>
-			<li><router-link class="router-link" to="/article">vue</router-link></li>
+			<li><router-link class="router-link" to="/info">vue</router-link></li>
 			<li><router-link class="router-link" to="/">js</router-link></li>
 			<li><router-link class="router-link" to="/blockchain">blockchain</router-link></li>
 			<li><router-link class="router-link" to="/other">other</router-link></li>

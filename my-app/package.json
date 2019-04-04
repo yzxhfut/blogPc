@@ -9,6 +9,8 @@
   },
   "dependencies": {
     "element-ui": "^2.4.5",
+    "jsdom": "^14.0.0",
+    "mavon-editor": "^2.7.3",
     "vue": "^2.6.6",
     "vue-router": "^3.0.1"
   },
