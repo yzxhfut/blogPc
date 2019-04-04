@@ -6,8 +6,9 @@
 		<HomeBodyTitle v-for="(article,index) in articles" 
 			v-bind:key="index"
 			v-bind:title="article.title"
+			:date="article.updatedAt"
 		></HomeBodyTitle>
-		<el-pagination
+		<el-pagination v-if="total>20"
 			:current-page="page"
 			:page-size="pagesize"
 			layout="prev, pager, next"
@@ -21,7 +22,7 @@
 
 <script>
 import HomeBodyTitle from '@/components/HomeBodyTitle.vue'
-
+import Bmob from "hydrogen-js-sdk";
 
 export default {
   name: 'homebody',
@@ -33,6 +34,7 @@ export default {
 		posts:[],
 		page:1,
 		pagesize:20,
+		
 	}
   },
   computed: {
@@ -55,9 +57,13 @@ export default {
 	}
   },
   created() {
-// 		for(let i = 1 ;i < 100 ; i++){
-// 			this.posts.push({id:i,title:"随机测试"+i})
-// 		}
+// 	const query = Bmob.Query("article");
+// 	query.equalTo("tag","==","vue");
+// 	query.find().then(res => {
+// 		console.log(res)
+// 		this.articles.push(res[0])
+// 		console.log(this.articles)
+// 	});
   },
   components: {
 	HomeBodyTitle

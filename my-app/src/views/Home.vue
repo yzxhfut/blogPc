@@ -1,9 +1,8 @@
 <template>
   <div>
-		<p></p>
     <HomeHead></HomeHead>
-		<HomeBody articles = "articleList"></HomeBody>
-		<HomeFooter></HomeFooter>
+	<HomeBody :articles="articleList"></HomeBody>
+	<HomeFooter></HomeFooter>
     <!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
   </div>
 </template>
@@ -22,9 +21,9 @@ export default {
 			articleList:[]
 		}
 	},
-  components: {
-    HomeHead,HomeBody,HomeFooter
-  },
+	components: {
+		HomeHead,HomeBody,HomeFooter
+	},
 	computed: {
 		tag() {
 			return this.$route.query.tag
@@ -32,15 +31,32 @@ export default {
 	},
 	watch: {
 		'$route' (newValue, oldValue) {
+			this.articleList = []
 			console.log(newValue.params.tag)
 			const query = Bmob.Query("article");
-			query.equalTo("tag","==", newValue.params.tag);
+			if(newValue.params.tag != undefined){
+				query.equalTo("tag","==", newValue.params.tag);
+			}
 			query.find().then(res => {
-				this.articleList.push(res[0])
-				console.log(this.articleList)
+				console.log(res)
+				if(res.length > 0){
+					for (let s of res) {
+						this.articleList.push(s)
+					}
+				}
 			});
 		}
-	}
+	},
+	created() {
+		const query = Bmob.Query("article");
+		query.find().then(res => {
+			if(res.length > 0){
+				for (let s of res) {
+					this.articleList.push(s)
+				}
+			}
+		});
+	},
 }
 </script>
 

@@ -11,11 +11,13 @@
 <style scoped>
 	div{
 		height: 3em;
-		/* margin-top: 1em; */
 		background-color:  dimgray;
 		text-align: center;
-		display: flex;
-		justify-content: center;
+		/* display: flex;
+		justify-content: center; */
+		position:absolute;
+		bottom:0;
+		width:100%;
 	}
 	p{
 		margin-block-end: 0;
