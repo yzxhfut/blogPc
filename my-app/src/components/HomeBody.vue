@@ -3,9 +3,9 @@
 		<h2 class="hr">
 			<span>Content</span>
 		</h2>
-		<HomeBodyTitle v-for="list in lists" 
-			v-bind:key="list.id"
-			v-bind:title="list.title"
+		<HomeBodyTitle v-for="(article,index) in articles" 
+			v-bind:key="index"
+			v-bind:title="article.title"
 		></HomeBodyTitle>
 		<el-pagination
 			:current-page="page"
@@ -25,6 +25,9 @@ import HomeBodyTitle from '@/components/HomeBodyTitle.vue'
 
 export default {
   name: 'homebody',
+  props: {
+  	articles: Array
+  },
   data() {
 	return {
 		posts:[],
@@ -36,14 +39,14 @@ export default {
 		lists() {
 			let lists =[];
 			for(let i = (this.page -1) * this.pagesize ; i < this.page * this.pagesize ; i ++){
-				if(i < this.posts.length){
-					lists.push(this.posts[i])
+				if(i < this.articles.length){
+					lists.push(this.articles[i])
 				}
 			}
 			return lists 
 		},
 		total(){
-			return this.posts.length
+			return this.articles.length
 		}
   },
   methods: {
@@ -52,9 +55,9 @@ export default {
 	}
   },
   created() {
-		for(let i = 1 ;i < 100 ; i++){
-			this.posts.push({id:i,title:"随机测试"+i})
-		}
+// 		for(let i = 1 ;i < 100 ; i++){
+// 			this.posts.push({id:i,title:"随机测试"+i})
+// 		}
   },
   components: {
 	HomeBodyTitle

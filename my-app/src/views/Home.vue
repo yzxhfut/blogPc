@@ -1,7 +1,8 @@
 <template>
   <div>
+		<p></p>
     <HomeHead></HomeHead>
-		<HomeBody></HomeBody>
+		<HomeBody articles = "articleList"></HomeBody>
 		<HomeFooter></HomeFooter>
     <!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
   </div>
@@ -12,12 +13,34 @@
 import HomeHead from '@/components/HomeHead.vue'
 import HomeBody from '@/components/HomeBody.vue'
 import HomeFooter from '@/components/HomeFooter.vue'
+import Bmob from "hydrogen-js-sdk";
 
 export default {
   name: 'home',
+	data() {
+		return {
+			articleList:[]
+		}
+	},
   components: {
     HomeHead,HomeBody,HomeFooter
-  }
+  },
+	computed: {
+		tag() {
+			return this.$route.query.tag
+		},
+	},
+	watch: {
+		'$route' (newValue, oldValue) {
+			console.log(newValue.params.tag)
+			const query = Bmob.Query("article");
+			query.equalTo("tag","==", newValue.params.tag);
+			query.find().then(res => {
+				this.articleList.push(res[0])
+				console.log(this.articleList)
+			});
+		}
+	}
 }
 </script>
 

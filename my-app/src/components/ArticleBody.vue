@@ -37,11 +37,11 @@
 		font-weight: bold;
 		margin: 0.6em 0;
 		text-align: left;
-		padding-left: 1.5em;
-		padding-right: 1.5em;
+		padding-left: 0.67em;
+		padding-right: 0.67em;
 	}
 	.mavon{
-		padding-left: 2em;
-		padding-right: 2em;
+		padding-left: 1em;
+		padding-right: 1em;
 	}
 </style>
