@@ -30,17 +30,18 @@ export default {
 		},
 	},
 	watch: {
-		'$route' (newValue, oldValue) {
+		'$route' (newValue) {
 			this.articleList = []
-			console.log(newValue.params.tag)
 			const query = Bmob.Query("article");
 			if(newValue.params.tag != undefined){
 				query.equalTo("tag","==", newValue.params.tag);
 			}
+			query.order("-updatedAt");
 			query.find().then(res => {
-				console.log(res)
+				//console.log(res)
 				if(res.length > 0){
 					for (let s of res) {
+						//console.log(s)
 						this.articleList.push(s)
 					}
 				}
@@ -49,14 +50,19 @@ export default {
 	},
 	created() {
 		const query = Bmob.Query("article");
+		if(this.$route.params.tag != undefined){
+			query.equalTo("tag","==", this.$route.params.tag);
+		}
+		query.order("-updatedAt");
 		query.find().then(res => {
 			if(res.length > 0){
 				for (let s of res) {
 					this.articleList.push(s)
+					window.sessionStorage.setItem(s.objectId,s.content)
 				}
 			}
 		});
-	},
+	}
 }
 </script>
 

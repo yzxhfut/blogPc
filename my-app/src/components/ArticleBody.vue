@@ -1,7 +1,7 @@
 <template>
 	<div class="container">
-		<h1 class="title">测试</h1>
-		<mavon-editor class="mavon" v-html="value" :subfield="false" 
+		<h1 class="title">{{title}}</h1>
+		<mavon-editor class="mavon" v-html="content" :subfield="false" 
 			:defaultOpen="defaultData" :toolbarsFlag="false" 
 			:boxShadow="false"/>
 	</div>
@@ -9,15 +9,18 @@
 
 <script>
 	export default {
+		props: {
+			content: String,
+			title:String
+		},
 		data() {
 			return {
-				value: `<blockquote>
-								<p>你好</p>
-								</blockquote>
-								<p><code>java</code></p>`,
 				defaultData:"preview"
 			}
 		},
+		created() {
+			console.log(this.title)
+		}
 	}
 </script>
 
@@ -43,5 +46,11 @@
 	.mavon{
 		padding-left: 1em;
 		padding-right: 1em;
+		min-height: 200px;
+		margin-top: 1em;
+		background-color: #FAFAFA;
+	}
+	.markdown-body p{
+		padding: 0 !important;
 	}
 </style>

@@ -7,6 +7,7 @@
 			v-bind:key="index"
 			v-bind:title="article.title"
 			:date="article.updatedAt"
+			:id="article.objectId"
 		></HomeBodyTitle>
 		<el-pagination v-if="total>20"
 			:current-page="page"
@@ -22,12 +23,11 @@
 
 <script>
 import HomeBodyTitle from '@/components/HomeBodyTitle.vue'
-import Bmob from "hydrogen-js-sdk";
 
 export default {
   name: 'homebody',
   props: {
-  	articles: Array
+	articles: Array
   },
   data() {
 	return {
@@ -57,13 +57,6 @@ export default {
 	}
   },
   created() {
-// 	const query = Bmob.Query("article");
-// 	query.equalTo("tag","==","vue");
-// 	query.find().then(res => {
-// 		console.log(res)
-// 		this.articles.push(res[0])
-// 		console.log(this.articles)
-// 	});
   },
   components: {
 	HomeBodyTitle

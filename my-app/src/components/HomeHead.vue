@@ -1,8 +1,8 @@
 <template>
 	<div>
 		<img src="../assets/guiqie.jpg"/>
-		<p >Zhengxiang Yue</p>
-		<p >Software Engineer. Blogging about tech and life. 
+		<p class="p">Zhengxiang Yue</p>
+		<p class="p">Software Engineer. Blogging about tech and life. 
 			<router-link v-if="login" class="router-link" to="/edit">add</router-link>
 			<el-button v-else type="text" @click="dialogFormVisible = true">login</el-button>
 					
@@ -51,7 +51,7 @@ import Bmob from "hydrogen-js-sdk";
 					//console.log(res)
 					if(res){
 						that.dialogFormVisible = false
-						window.localStorage.setItem("user","true")	
+						window.sessionStorage.setItem("user","true")	
 						that.$router.push('/edit')
 						that.$router.back(-1)
 					}
@@ -71,7 +71,7 @@ import Bmob from "hydrogen-js-sdk";
 			}
 		},
 		created() {
-			this.login = window.localStorage.getItem("user") === "true" ? true : false
+			this.login = window.sessionStorage.getItem("user") === "true" ? true : false
 			const query = Bmob.Query("tag");
 			query.find().then(res => {
 				for (let s of res) {
@@ -83,7 +83,7 @@ import Bmob from "hydrogen-js-sdk";
 	}
 </script>
 
-<style>
+<style >
 	div {
 		text-align: center;
 	}
@@ -104,7 +104,7 @@ import Bmob from "hydrogen-js-sdk";
 		display: inline-block;
 		margin: 0 10px;
 	}
-	p {
+	.p {
 		padding-left: 2em;
 		padding-right: 2em;
 	}
