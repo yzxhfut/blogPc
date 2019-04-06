@@ -17,7 +17,7 @@
 </template>
 
 <script>
-	
+import Bmob from "hydrogen-js-sdk";
 	export default {
 		data() {
 			return {
@@ -67,16 +67,16 @@
 					query.set("tag",this.tag)
 					query.set("content",this.content)
 					query.save().then(res => {
-						this.$alert('添加成功', '提示', {
-							confirmButtonText: '确定',
-							showClose:false,
-						});
-						
+						if(res){
+							this.$alert('添加成功', '提示', {
+								confirmButtonText: '确定',
+								showClose:false,
+							});
+						}
 					})
 				}else{
 					this.$alert('标题或标签不能为空', '提示', {
-						 confirmButtonText: '确定',
-					
+						confirmButtonText: '确定',
 						showClose:false,
 					});
 				}

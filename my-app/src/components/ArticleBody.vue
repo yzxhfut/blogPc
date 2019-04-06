@@ -18,9 +18,6 @@
 				defaultData:"preview"
 			}
 		},
-		created() {
-			console.log(this.title)
-		}
 	}
 </script>
 
