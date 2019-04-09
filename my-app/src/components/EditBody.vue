@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import Bmob from "hydrogen-js-sdk";
+//import Bmob from "hydrogen-js-sdk";
 	export default {
 		data() {
 			return {
@@ -62,18 +62,17 @@ import Bmob from "hydrogen-js-sdk";
 			},
 			submit(){
 				if(this.title!='' && this.tag!=''){
-					const query = Bmob.Query('article');
-					query.set("title",this.title)
-					query.set("tag",this.tag)
-					query.set("content",this.content)
-					query.save().then(res => {
-						if(res){
-							this.$alert('添加成功', '提示', {
-								confirmButtonText: '确定',
-								showClose:false,
-							});
-						}
-					})
+					this.$http.post('http://114.115.143.235:1080/article',
+						{title: this.title,tag:this.tag,content:this.content}).then(function(res){
+					    if(res.body){
+					    	this.$alert('添加成功', '提示', {
+					    		confirmButtonText: '确定',
+					    		showClose:false,
+					    	});
+					    }
+					},function(){
+						console.log('请求失败处理');
+					});
 				}else{
 					this.$alert('标题或标签不能为空', '提示', {
 						confirmButtonText: '确定',
@@ -84,11 +83,14 @@ import Bmob from "hydrogen-js-sdk";
 			}
 		},
 		created() {
-			const query = Bmob.Query("tag");
-			query.find().then(res => {
-				for (let s of res) {
-					this.tags.push(s.tagName)
-				}
+			this.$http.get('http://114.115.143.235:1080/head').then(function(res){
+			    if(res.body.length > 0){
+			    	for (let s of res.body) {
+			    		this.tags.push(s.tagName)
+			    	}
+			    }
+			},function(){
+				console.log('请求失败处理');
 			});
 		}
 	};
@@ -107,6 +109,9 @@ import Bmob from "hydrogen-js-sdk";
 			width: 80% !important;
 		}
 		.el-button--primary{
+			width: 80% !important;
+		}
+		.btn{
 			width: 80% !important;
 		}
 	}

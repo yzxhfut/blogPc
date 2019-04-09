@@ -1,5 +1,5 @@
 <template>
-	<div class="container">
+	<div class="container" ref='height'>
 		<h2 class="hr">
 			<span>Content</span>
 		</h2>
@@ -56,11 +56,9 @@ export default {
 		this.page = val
 	}
   },
-  created() {
-  },
   components: {
 	HomeBodyTitle
-  }
+  },
 }
 </script>
 

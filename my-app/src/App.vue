@@ -11,15 +11,16 @@
 		color: #2c3e50;
 		display: flex;
 		justify-content: center;
-		
+		height: 100%;
 	}
 	
 </style>
 
 <script>
 	export default {
-		beforeCreate () {
-			document.querySelector('body').setAttribute('style', 'margin:0;background-color: #FAFAFA;')
-		}
+// 		beforeCreate () {
+// 			document.querySelector('body').setAttribute('style', 'margin:0;background-color: #FAFAFA;height: 100%;')
+// 			document.querySelector('html').setAttribute('style', 'height: 100%;')
+// 		}
 	}
 </script>

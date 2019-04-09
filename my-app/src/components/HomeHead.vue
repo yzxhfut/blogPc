@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<img src="../assets/guiqie.jpg"/>
+		<img src='@/assets/guiqie.jpg'/>
 		<p class="p">Zhengxiang Yue</p>
 		<p class="p">Software Engineer. Blogging about tech and life. 
 			<router-link v-if="login" class="router-link" to="/edit">add</router-link>
@@ -28,11 +28,7 @@
 </template>
 
 <script>
-import Bmob from "hydrogen-js-sdk";
 	export default {
-		props: {
-			
-		},
 		data() {
 			return {
 				dialogFormVisible: false,
@@ -41,24 +37,25 @@ import Bmob from "hydrogen-js-sdk";
 				formLabelWidth: '50px',
 				login:false,
 				tagList:[],
-				tip:''
+				tip:'',
 			}
 		},
 		methods: {
 			submit() {
 				var that = this
-				Bmob.User.login(that.username,that.password).then(res => {
-					//console.log(res)
-					if(res){
-						that.dialogFormVisible = false
-						window.sessionStorage.setItem("user","true")	
-						that.$router.push('/edit')
-						that.$router.back(-1)
-					}
-					}).catch(err => {
-						//console.log(err)
-						if(err.code === 101)
+				this.$http.post('http://114.115.143.235:1080/head',
+					{username: that.username,password:that.password}).then(function(res){
+				    if(res.body!='error'){
+							that.dialogFormVisible = false
+							window.sessionStorage.setItem("user","true")	
+							that.$router.push('/edit')
+							that.$router.back(-1)
+				    }else{
 							that.tip = '用户名或密码错误'
+						}
+					console.log(res.body)
+				},function(){
+					console.log('请求失败处理');
 				});
 			},
 			chooseTag(item){
@@ -67,17 +64,18 @@ import Bmob from "hydrogen-js-sdk";
 				}else{
 					this.$router.push('/')
 				}
-				//console.log(item)
 			}
 		},
 		created() {
 			this.login = window.sessionStorage.getItem("user") === "true" ? true : false
-			const query = Bmob.Query("tag");
-			query.find().then(res => {
-				for (let s of res) {
-					this.tagList.push(s.tagName)
-				}
-				//console.log(this.tagList)
+			this.$http.get('http://114.115.143.235:1080/head').then(function(res){
+			    if(res.body.length > 0){
+			    	for (let s of res.body) {
+			    		this.tagList.push(s.tagName)
+			    	}
+			    }
+			},function(){
+				console.log('请求失败处理');
 			});
 		}
 	}

@@ -18,9 +18,6 @@ export default {
 		return this.date.split(' ')[0]
 	},
 	url(){
-		//window.sessionStorage.setItem('title',this.title)
-		//window.sessionStorage.setItem('title',6)
-		//console.log(this.title)
 		return '/info/'+this.id+'/'+this.title
 	},
   },
@@ -36,6 +33,6 @@ export default {
 	}
 	.router-link{
 		color: black;
-		text-decoration: none;
+		text-decoration: underline;
 	}
 </style>

@@ -6,21 +6,32 @@
 
 
 <script>
+export default {
+	
+}
+	
 </script>
 
 <style scoped>
 	div{
-		height: 3em;
+		height: 2em;
 		background-color:  dimgray;
 		text-align: center;
-		/* display: flex;
-		justify-content: center; */
-		position:absolute;
-		bottom:0;
-		width:100%;
+		line-height: 2em;
+		bottom: 0;
+		position: fixed;
+	}
+	@media only screen and (max-width: 600px){
+		div{
+			height: 2em;
+			background-color:  dimgray;
+			text-align: center;
+			line-height: 2em;
+			position:relative;
+		}
 	}
 	p{
-		margin-block-end: 0;
 		color: white;
+		margin: 0;
 	}
 </style>

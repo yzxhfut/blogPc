@@ -1,7 +1,7 @@
 <template>
   <div>
-    <HomeHead></HomeHead>
-		<ArticleBody :title="title" :content="content"></ArticleBody>
+		<HomeHead></HomeHead>
+		<ArticleBody :title="title" :content="content" :style="{minHeight: bodyheight+'px'}"></ArticleBody>
 		<HomeFooter></HomeFooter>
   </div>
 </template>
@@ -18,11 +18,13 @@ export default {
 	data() {
 		return {
 			content:'',
-			title:''
+			title:'',
+			bodyheight:0
 		}
 	},
 	created() {
 		//console.log(this.$route.params.title)
+		this.bodyheight = document.body.clientHeight-284-32-16
 		this.content = window.sessionStorage.getItem(this.$route.params.id)
 		this.title = this.$route.params.title
 	},
