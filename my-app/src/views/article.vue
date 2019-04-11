@@ -1,6 +1,6 @@
 <template>
   <div>
-		<HomeHead></HomeHead>
+		<HomeHead ref='headheight'></HomeHead>
 		<ArticleBody :title="title" :content="content" :style="{minHeight: bodyheight+'px'}"></ArticleBody>
 		<HomeFooter></HomeFooter>
   </div>
@@ -23,10 +23,12 @@ export default {
 		}
 	},
 	created() {
-		//console.log(this.$route.params.title)
-		this.bodyheight = document.body.clientHeight-284-32-16
 		this.content = window.sessionStorage.getItem(this.$route.params.id)
 		this.title = this.$route.params.title
+	},
+	mounted() {
+		this.bodyheight = document.body.clientHeight-
+			this.$refs.headheight.$el.clientHeight-32-16
 	},
   components: {
     HomeHead,ArticleBody,HomeFooter

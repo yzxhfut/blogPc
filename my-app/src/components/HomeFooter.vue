@@ -18,10 +18,10 @@ export default {
 		background-color:  dimgray;
 		text-align: center;
 		line-height: 2em;
-		bottom: 0;
-		position: fixed;
+		/* bottom: 0;
+		position: fixed; */
 	}
-	@media only screen and (max-width: 600px){
+/* 	@media only screen and (max-width: 600px){
 		div{
 			height: 2em;
 			background-color:  dimgray;
@@ -29,7 +29,7 @@ export default {
 			line-height: 2em;
 			position:relative;
 		}
-	}
+	} */
 	p{
 		color: white;
 		margin: 0;

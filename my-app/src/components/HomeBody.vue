@@ -81,7 +81,7 @@ export default {
 		text-align: center;
 		border-bottom: 1px solid #A7ADBA;
 		margin-top: 2em;
-		margin-bottom: 1.2em;
+		margin-bottom: 1em;
 	}
 	h2 {
 		font-size: 1.5em;

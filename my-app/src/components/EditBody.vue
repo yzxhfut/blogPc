@@ -61,18 +61,39 @@
 				this.content = render
 			},
 			submit(){
+				let id = window.sessionStorage.getItem('edit')
 				if(this.title!='' && this.tag!=''){
-					this.$http.post('http://114.115.143.235:1080/article',
-						{title: this.title,tag:this.tag,content:this.content}).then(function(res){
-					    if(res.body){
-					    	this.$alert('添加成功', '提示', {
-					    		confirmButtonText: '确定',
-					    		showClose:false,
-					    	});
-					    }
-					},function(){
-						console.log('请求失败处理');
-					});
+					if(id){
+						this.$http.post('http://114.115.143.235:1080/edit',
+							{id:id,title: this.title,tag:this.tag,content:this.content}).then(function(res){
+							if(res.body){
+								this.$alert('修改成功', '提示', {
+									confirmButtonText: '确定',
+									showClose:false,
+								});
+							}
+						},function(){
+							this.$alert('请求处理失败', '提示', {
+								confirmButtonText: '确定',
+								showClose:false,
+							});
+						});
+					}else{
+						this.$http.post('http://114.115.143.235:1080/article',
+							{title: this.title,tag:this.tag,content:this.content}).then(function(res){
+							if(res.body){
+								this.$alert('添加成功', '提示', {
+									confirmButtonText: '确定',
+									showClose:false,
+								});
+							}
+						},function(){
+							this.$alert('请求处理失败', '提示', {
+								confirmButtonText: '确定',
+								showClose:false,
+							});
+						});
+					}
 				}else{
 					this.$alert('标题或标签不能为空', '提示', {
 						confirmButtonText: '确定',
@@ -83,15 +104,37 @@
 			}
 		},
 		created() {
+			let id = window.sessionStorage.getItem('edit')
+			if(id){
+				this.$http.get('http://114.115.143.235:1080/edit',{params: {id: id}}).then(function(res){
+					//console.log(res.body)
+					if(res.body){
+						this.title = res.body.title
+						this.value = res.body.content
+						this.tag = res.body.tag
+					}
+				},function(){
+					this.$message({
+						type: 'fail',
+						message: '连接失败!'
+					});
+				});
+			}
 			this.$http.get('http://114.115.143.235:1080/head').then(function(res){
-			    if(res.body.length > 0){
-			    	for (let s of res.body) {
-			    		this.tags.push(s.tagName)
-			    	}
-			    }
+				if(res.body.length > 0){
+					for (let s of res.body) {
+						this.tags.push(s.tagName)
+					}
+				}
 			},function(){
-				console.log('请求失败处理');
+				this.$alert('请求处理失败', '提示', {
+					confirmButtonText: '确定',
+					showClose:false,
+				});
 			});
+		},
+		destroyed() {
+			window.sessionStorage.removeItem('edit')
 		}
 	};
 </script>
@@ -109,6 +152,9 @@
 			width: 80% !important;
 		}
 		.el-button--primary{
+			width: 80% !important;
+		}
+		.el-message-box{
 			width: 80% !important;
 		}
 		.btn{
@@ -141,7 +187,7 @@
 		line-height: 1;
 	}
 	.el-message-box{
-		width: 80%;
+		width: 50%;
 	}
 	.el-message-box__btns{
 		width: 40%;

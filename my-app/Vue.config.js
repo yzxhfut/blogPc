@@ -6,6 +6,5 @@ module.exports = {
     // 服务器端口号
     devServer: {
         port: 1080,
-		https: true,
     },
 }

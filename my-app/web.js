@@ -61,6 +61,34 @@ app.post('/article',function(req,res){
 		res.send(bres)
 	})
 })
+//删除
+app.get('/delete',function(req,res){
+	const query = Bmob.Query('article');
+	query.destroy(req.query.id).then(bres => {
+		res.send('success')
+	}).catch(err => {
+		res.send(err)
+	})
+})
+//编辑
+app.get('/edit',function(req,res){
+	const query = Bmob.Query('article');
+	query.get(req.query.id).then(bres => {
+		res.send(bres)
+	}).catch(err => {
+		res.send(err)
+	})
+})
+app.post('/edit',function(req,res){
+	const query = Bmob.Query('article');
+	query.set("id",req.body.id)
+	query.set("title",req.body.title)
+	query.set("tag",req.body.tag)
+	query.set("content",req.body.content)
+	query.save().then(bres => {
+		res.send(bres)
+	})
+})
 
 app.listen(1080,function(){
 	console.log('listening port 1080');

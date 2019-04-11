@@ -1,12 +1,12 @@
 <template>
 	<div>
-		<img src='@/assets/guiqie.jpg'/>
+		<img class="img" src='@/assets/guiqie.jpg'/>
 		<p class="p">Zhengxiang Yue</p>
 		<p class="p">Software Engineer. Blogging about tech and life. 
 			<router-link v-if="login" class="router-link" to="/edit">add</router-link>
 			<el-button v-else type="text" @click="dialogFormVisible = true">login</el-button>
 					
-			<el-dialog title="登录" :visible.sync="dialogFormVisible" width="50%" style="padding: 0 10px;">
+			<el-dialog title="登录" :visible.sync="dialogFormVisible" :width="dialogwidth" style="padding: 0 10px;">
 				<el-form>
 					<el-form-item label="账号" :label-width="formLabelWidth">
 						<el-input v-model="username" autocomplete="off"></el-input>
@@ -31,6 +31,7 @@
 	export default {
 		data() {
 			return {
+				dialogwidth:'50%',
 				dialogFormVisible: false,
 				username:'',
 				password:'',
@@ -40,22 +41,24 @@
 				tip:'',
 			}
 		},
+		inject:['reload'],
 		methods: {
 			submit() {
 				var that = this
 				this.$http.post('http://114.115.143.235:1080/head',
 					{username: that.username,password:that.password}).then(function(res){
-				    if(res.body!='error'){
+					if(res.body!='error'){
 							that.dialogFormVisible = false
 							window.sessionStorage.setItem("user","true")	
-							that.$router.push('/edit')
-							that.$router.back(-1)
-				    }else{
+							that.reload()
+					}else{
 							that.tip = '用户名或密码错误'
 						}
-					console.log(res.body)
 				},function(){
-					console.log('请求失败处理');
+					that.$message({
+						type: 'fail',
+						message: '连接失败!'
+					});
 				});
 			},
 			chooseTag(item){
@@ -67,25 +70,31 @@
 			}
 		},
 		created() {
+			if(document.body.clientWidth < 600){
+				this.dialogwidth = '90%'
+			}
 			this.login = window.sessionStorage.getItem("user") === "true" ? true : false
 			this.$http.get('http://114.115.143.235:1080/head').then(function(res){
-			    if(res.body.length > 0){
-			    	for (let s of res.body) {
-			    		this.tagList.push(s.tagName)
-			    	}
-			    }
+				if(res.body.length > 0){
+					for (let s of res.body) {
+						this.tagList.push(s.tagName)
+					}
+				}
 			},function(){
-				console.log('请求失败处理');
+				this.$alert('请求处理失败', '提示', {
+					confirmButtonText: '确定',
+					showClose:false,
+				});
 			});
 		}
 	}
 </script>
 
-<style >
+<style scoped>
 	div {
 		text-align: center;
 	}
-	img {
+	.img{
 		width: 128px; 
 		height: 128px; 
 		background-size: cover; 
@@ -108,7 +117,7 @@
 	}
 	@media only screen and (max-width: 600px){
 		.el-dialog {
-			width: 90%!important;
+			width: 90% !important;
 		}
 	}
 	.el-dialog{
