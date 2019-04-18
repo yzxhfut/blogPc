@@ -57,6 +57,7 @@ app.post('/article',function(req,res){
 	query.set("title",req.body.title)
 	query.set("tag",req.body.tag)
 	query.set("content",req.body.content)
+	query.set("value",req.body.value)
 	query.save().then(bres => {
 		res.send(bres)
 	})
@@ -85,6 +86,7 @@ app.post('/edit',function(req,res){
 	query.set("title",req.body.title)
 	query.set("tag",req.body.tag)
 	query.set("content",req.body.content)
+	query.set("value",req.body.value)
 	query.save().then(bres => {
 		res.send(bres)
 	})

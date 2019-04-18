@@ -1,6 +1,6 @@
 <template>
 	<div class="container">
-		<h1 class="title">{{title}}</h1>
+		<h1>{{title}}</h1>
 		<mavon-editor class="mavon" v-html="content" :subfield="false" 
 			:defaultOpen="defaultData" :toolbarsFlag="false" 
 			:boxShadow="false"/>
@@ -36,7 +36,7 @@
 		font-size: 1.5em;
 		font-weight: bold;
 		margin: 0.6em 0;
-		text-align: left;
+		text-align: center;
 		padding-left: 0.67em;
 		padding-right: 0.67em;
 	}

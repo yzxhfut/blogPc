@@ -59,13 +59,14 @@
 		methods: {
 			getHtml(value, render) {
 				this.content = render
+				this.value = value
 			},
 			submit(){
 				let id = window.sessionStorage.getItem('edit')
 				if(this.title!='' && this.tag!=''){
 					if(id){
 						this.$http.post('http://114.115.143.235:1080/edit',
-							{id:id,title: this.title,tag:this.tag,content:this.content}).then(function(res){
+							{id:id,title: this.title,tag:this.tag,content:this.content,value:this.value}).then(function(res){
 							if(res.body){
 								this.$alert('修改成功', '提示', {
 									confirmButtonText: '确定',
@@ -80,7 +81,7 @@
 						});
 					}else{
 						this.$http.post('http://114.115.143.235:1080/article',
-							{title: this.title,tag:this.tag,content:this.content}).then(function(res){
+							{title: this.title,tag:this.tag,content:this.content,value:this.value}).then(function(res){
 							if(res.body){
 								this.$alert('添加成功', '提示', {
 									confirmButtonText: '确定',
@@ -110,7 +111,7 @@
 					//console.log(res.body)
 					if(res.body){
 						this.title = res.body.title
-						this.value = res.body.content
+						this.value = res.body.value
 						this.tag = res.body.tag
 					}
 				},function(){
@@ -163,7 +164,7 @@
 	}
 	.mavon{
 		min-height: 330px;
-		margin-top: 2em;
+		margin: 2em;
 	}
 	.form{
 		width: 50%;
