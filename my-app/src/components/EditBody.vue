@@ -162,10 +162,6 @@
 			width: 80% !important;
 		}
 	}
-	.mavon{
-		min-height: 330px;
-		margin: 2em;
-	}
 	.form{
 		width: 50%;
 		margin: auto;

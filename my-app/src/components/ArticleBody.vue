@@ -22,11 +22,6 @@
 </script>
 
 <style>
-	@media only screen and (max-width: 600px){
-		.article {
-			width: 100%;
-		}
-	}
 	
 	h1 {
 		font-size: 1.5em;
