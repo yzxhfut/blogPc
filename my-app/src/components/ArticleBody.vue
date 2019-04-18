@@ -1,7 +1,7 @@
 <template>
-	<div class="container">
+	<div class="article">
 		<h1>{{title}}</h1>
-		<mavon-editor class="mavon" v-html="content" :subfield="false" 
+		<mavon-editor codeStyle='vs' class="mavon" v-html="content" :subfield="false" 
 			:defaultOpen="defaultData" :toolbarsFlag="false" 
 			:boxShadow="false"/>
 	</div>
@@ -21,13 +21,9 @@
 	}
 </script>
 
-<style scoped>
-	.container {
-		width: 960px;
-		margin: 0 auto;
-	}
+<style>
 	@media only screen and (max-width: 600px){
-		.container {
+		.article {
 			width: 100%;
 		}
 	}
@@ -49,5 +45,8 @@
 	}
 	.markdown-body p{
 		padding: 0 !important;
+	}
+	.markdown-body .highlight pre, .markdown-body pre{
+		background-color: blanchedalmond !important;
 	}
 </style>

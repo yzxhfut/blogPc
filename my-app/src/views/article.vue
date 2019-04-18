@@ -1,7 +1,7 @@
 <template>
   <div>
 		<HomeHead ref='headheight'></HomeHead>
-		<ArticleBody :title="title" :content="content" :style="{minHeight: bodyheight+'px'}"></ArticleBody>
+		<ArticleBody class="articlebody" :title="title" :content="content" :style="{minHeight: bodyheight+'px'}"></ArticleBody>
 		<HomeFooter></HomeFooter>
   </div>
 </template>
@@ -39,5 +39,14 @@ export default {
 <style scoped>
 	div{
 		width: 100%;
+	}
+	.articlebody{
+		width: 960px;
+		margin: auto;
+	}
+	@media only screen and (max-width: 600px){
+		.articlebody {
+			width: 100%;
+		}
 	}
 </style>

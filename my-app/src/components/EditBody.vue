@@ -11,7 +11,7 @@
 				</el-select>
 			</el-form-item>
 		</el-form>
-		<mavon-editor class="mavon" :toolbars="toolbars" v-model="value" @change="getHtml"/>
+		<mavon-editor class="mavon" codeStyle='vs2015' :toolbars="toolbars" v-model="value" @change="getHtml"/>
 		<button class="btn" @click="submit">提交</button>
 	</div>
 </template>
