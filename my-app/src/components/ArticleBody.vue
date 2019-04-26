@@ -36,10 +36,10 @@
 		padding-right: 1em;
 		min-height: 200px;
 		margin-top: 1em;
-		background-color: #FAFAFA;
+		background-color: #FAFAFA !important;
 	}
 	.markdown-body p{
-		padding: 0 !important;
+		padding: 0 ;
 	}
 	.markdown-body .highlight pre, .markdown-body pre{
 		background-color: blanchedalmond !important;

@@ -11,7 +11,7 @@
 				</el-select>
 			</el-form-item>
 		</el-form>
-		<mavon-editor class="mavon" codeStyle='vs2015' :toolbars="toolbars" v-model="value" @change="getHtml"/>
+		<mavon-editor class="mavon" :toolbars="toolbars" v-model="value" @change="getHtml"/>
 		<button class="btn" @click="submit">提交</button>
 	</div>
 </template>
@@ -140,27 +140,10 @@
 	};
 </script>
 
-<style>
+<style scoped>
 	.container {
-		width: 960px;
+		width: 100%;
 		margin: auto;
-	}
-	@media only screen and (max-width: 600px){
-		.container {
-			width: 100%;
-		}
-		.form{
-			width: 80% !important;
-		}
-		.el-button--primary{
-			width: 80% !important;
-		}
-		.el-message-box{
-			width: 80% !important;
-		}
-		.btn{
-			width: 80% !important;
-		}
 	}
 	.form{
 		width: 50%;
@@ -176,23 +159,20 @@
 		color: #FFF;
 		background-color: #409EFF;
 		border-color: #409EFF;
-		width: 50% ;
+		width: 30% ;
 		height: 3em;
 		margin: 1em 0;
 		font-size: 16px;
 		border-radius: 4px;
 		line-height: 1;
 	}
-	.el-message-box{
-		width: 50%;
-	}
-	.el-message-box__btns{
-		width: 40%;
-		margin: auto;
-		display: flex;
-		justify-content: center;
-	}
+
 	p{
 		padding: 0;
+	}
+	.mavon{
+		height: 800px;
+		width: 80%;
+		margin: auto;
 	}
 </style>
