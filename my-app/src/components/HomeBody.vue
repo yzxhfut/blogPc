@@ -6,7 +6,7 @@
 		<HomeBodyTitle v-for="(article,index) in articles" 
 			v-bind:key="index"
 			v-bind:title="article.title"
-			:date="article.updatedAt"
+			:date="article.createdAt"
 			:id="article.objectId"
 		></HomeBodyTitle>
 		<el-pagination v-if="total>20"

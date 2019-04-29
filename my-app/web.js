@@ -26,7 +26,7 @@ app.get('/home',function(req,res){
 	if(req.query.tag){
 		query.equalTo("tag","==", req.query.tag);
 	}
-	query.order("-updatedAt");
+	query.order("-createdAt");
 	query.find().then(bres => {
 		if(bres.length > 0){
 			res.send(bres);

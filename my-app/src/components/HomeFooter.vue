@@ -18,8 +18,6 @@ export default {
 		background-color:  dimgray;
 		text-align: center;
 		line-height: 2em;
-		/* bottom: 0;
-		position: fixed; */
 	}
 /* 	@media only screen and (max-width: 600px){
 		div{

@@ -31,7 +31,7 @@
 	export default {
 		data() {
 			return {
-				dialogwidth:'50%',
+				dialogwidth:'30%',
 				dialogFormVisible: false,
 				username:'',
 				password:'',

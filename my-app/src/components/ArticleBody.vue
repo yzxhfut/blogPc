@@ -36,6 +36,7 @@
 		padding-right: 1em;
 		min-height: 200px;
 		margin-top: 1em;
+		margin-bottom: 2em;
 		background-color: #FAFAFA !important;
 	}
 	.markdown-body p{
