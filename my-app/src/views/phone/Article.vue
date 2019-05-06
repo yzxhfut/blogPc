@@ -8,9 +8,9 @@
 
 <script>
 // @ is an alias to /src
-import HomeHead from '@/components/HomeHead.vue'
-import ArticleBody from '@/components/ArticleBody.vue'
-import HomeFooter from '@/components/HomeFooter.vue'
+import HomeHead from '@/components/phone/HomeHead.vue'
+import ArticleBody from '@/components/phone/ArticleBody.vue'
+import HomeFooter from '@/components/phone/HomeFooter.vue'
 
 
 export default {

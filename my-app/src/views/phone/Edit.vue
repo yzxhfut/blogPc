@@ -6,8 +6,8 @@
 </template>
 
 <script>
-import HomeHead from '@/components/HomeHead.vue'
-import EditBody from '@/components/EditBody.vue'
+import HomeHead from '@/components/phone/HomeHead.vue'
+import EditBody from '@/components/phone/EditBody.vue'
 
 export default {
 	name: 'edit',

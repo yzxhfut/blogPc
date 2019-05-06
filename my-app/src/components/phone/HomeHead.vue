@@ -4,7 +4,7 @@
 		<p class="p">Zhengxiang Yue</p>
 		<p class="p">Software Engineer. Blogging about tech and life. 
 			<router-link v-if="login" class="router-link" to="/edit">add</router-link>
-			<el-button v-else type="text" @click="dialogFormVisible = true">login</el-button>
+			<el-button v-else type="text" @click="toast">login</el-button>
 					
 			<el-dialog title="登录" :visible.sync="dialogFormVisible" :width="dialogwidth" style="padding: 0 10px;">
 				<el-form>
@@ -28,6 +28,7 @@
 </template>
 
 <script>
+	import { Toast } from 'mint-ui';
 	export default {
 		data() {
 			return {
@@ -43,9 +44,12 @@
 		},
 		inject:['reload'],
 		methods: {
+			toast(){
+				Toast('提示信息');
+			},
 			submit() {
 				var that = this
-				this.$http.post('http://114.115.143.235:1080/head',
+				this.$http.post('https://yzxhfut.top:1088/head',
 					{username: that.username,password:that.password}).then(function(res){
 					if(res.body!='error'){
 							that.dialogFormVisible = false
@@ -74,7 +78,7 @@
 				this.dialogwidth = '90%'
 			}
 			this.login = window.sessionStorage.getItem("user") === "true" ? true : false
-			this.$http.get('http://114.115.143.235:1080/head').then(function(res){
+			this.$http.get('https://yzxhfut.top:1088/head').then(function(res){
 				if(res.body.length > 0){
 					for (let s of res.body) {
 						this.tagList.push(s.tagName)

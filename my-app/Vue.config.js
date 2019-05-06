@@ -5,6 +5,6 @@ module.exports = {
     productionSourceMap: false,
     // 服务器端口号
     devServer: {
-        port: 1080,
+        port: 1088,
     },
 }

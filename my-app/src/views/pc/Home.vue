@@ -8,9 +8,9 @@
 
 <script>
 // @ is an alias to /src
-import HomeHead from '@/components/HomeHead.vue'
-import HomeBody from '@/components/HomeBody.vue'
-import HomeFooter from '@/components/HomeFooter.vue'
+import HomeHead from '@/components/pc/HomeHead.vue'
+import HomeBody from '@/components/pc/HomeBody.vue'
+import HomeFooter from '@/components/pc/HomeFooter.vue'
 
 
 export default {
@@ -34,7 +34,7 @@ export default {
 			this.bodyheight = document.body.clientHeight-
 				this.$refs.headheight.$el.clientHeight-32-0.8*16-32
 			this.articleList = []
-			this.$http.get('http://114.115.143.235:1080/home',{params: 
+			this.$http.get('https://yzxhfut.top:1088/home',{params: 
 				{tag: newValue.params.tag}}).then(function(res){
 				if(res.body.length > 0){
 					for (let s of res.body) {
@@ -50,7 +50,7 @@ export default {
 		}
 	},
 	created() {
-		this.$http.get('http://114.115.143.235:1080/home',{params: {tag: this.$route.params.tag}}).then(function(res){
+		this.$http.get('https://yzxhfut.top:1088/home',{params: {tag: this.$route.params.tag}}).then(function(res){
             if(res.body.length > 0){
 				for (let s of res.body) {
 				this.articleList.push(s)

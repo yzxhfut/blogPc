@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import HomeBodyTitle from '@/components/HomeBodyTitle.vue'
+import HomeBodyTitle from '@/components/phone/HomeBodyTitle.vue'
 
 export default {
   name: 'homebody',

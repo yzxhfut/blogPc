@@ -2,6 +2,10 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var Bmob = require('hydrogen-js-sdk');
 
+var https = require("https");
+var fs = require("fs");
+
+
 Bmob.initialize("b42456a6a9f93f1de1c1639a51496d21", "bc3230dd9cd4181c689c827e1138ba80");
 var app = express();
 app.use(bodyParser.json()); 
@@ -92,6 +96,14 @@ app.post('/edit',function(req,res){
 	})
 })
 
-app.listen(1080,function(){
-	console.log('listening port 1080');
+app.get('/',function(req,res){
+	res.send("666")
 })
+
+//app.listen(1080,function(){
+//	console.log('listening port 1080');
+//})
+// Configuare httpsconst 
+httpsOption = { key : fs.readFileSync("yzx.key"), cert: fs.readFileSync("yzx.pem")}
+// Create servicelet 
+https.createServer(httpsOption, app).listen(1088);

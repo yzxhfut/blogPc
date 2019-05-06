@@ -1,8 +1,16 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from './views/Home.vue'
 
 Vue.use(Router)
+var isPhone = navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i)
+
+var path
+if(isPhone){
+	path =  './views/phone/'
+}else{
+	path =  './views/pc/'
+}
+//console.log(path)
 
 export default new Router({
 //   mode: 'history',
@@ -11,26 +19,21 @@ export default new Router({
     {
       path: '/',
       name: 'home',
-      component: Home
+      component: () => import(path+'Home.vue')
     },
 	{
 		path: '/home/:tag',
-		component: Home
+		component: () => import(path+'Home.vue')
 	},
     {
       path: '/info/:id/:title',
       name: 'info',
-      component: () => import(/* webpackChunkName: "about" */ './views/Article.vue')
+      component: () => import(path+'Article.vue')
     },
 		{
 			path: '/edit',
 			name: 'edit',
-			component: () => import(/* webpackChunkName: "about" */ './views/Edit.vue')
+			component: () => import(path+'Edit.vue')
 		},
-		{
-			path: '/test',
-			name: 'test',
-			component: () => import(/* webpackChunkName: "about" */ './views/Test.vue')
-		}
   ]
 })
