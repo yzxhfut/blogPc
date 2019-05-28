@@ -6,11 +6,13 @@
         <q-avatar>
           <img src="statics/icons/favicon-32x32.png">
         </q-avatar>
-        <q-toolbar-title shrink>yzxBlog</q-toolbar-title>
+        <q-toolbar-title>yzxBlog</q-toolbar-title>
+
+        <q-btn flat :label="tags[0]" class="icon-padding" icon="home" :size="iconSize" to="/"/>
+        <q-btn flat :label="tags[1]" class="icon-padding" icon="notes" :size="iconSize" to="/comment" />
+        <q-btn flat :label="tags[2]" class="icon-padding" icon="whatshot" :size="iconSize" to="/about"/>
+        <q-btn flat :label="tags[3]" class="icon-padding" icon="near_me" :size="iconSize" to="/link" />
         <div v-if="pc" class="col-3"/>
-        <q-btn flat :label="tags[0]" icon="home" size="lg" to="/"/>
-        <q-btn flat :label="tags[1]" icon="comment" size="lg" to="/comment" />
-        <q-btn flat :label="tags[2]" icon="near_me" size="lg" to="/about"/>
 			</q-toolbar>
 		</q-header>
 
@@ -20,17 +22,16 @@
 
     <q-footer elevated>
         <q-toolbar class="bg-primary text-white justify-center">
-          <q-toolbar-title shrink :style="fontsize">Copyright © 2019 皖ICP备19005672号</q-toolbar-title>
+          <q-toolbar-title shrink :class="fontsize">Copyright © 2019 皖ICP备19005672号</q-toolbar-title>
         </q-toolbar>
     </q-footer>
 	</q-layout>
 </template>
 
 <script>
-import { openURL } from 'quasar'
 
 export default {
-  name: 'MyLayout',
+  name: 'Home',
   data () {
     return {
       pc: this.$q.platform.is.desktop
@@ -38,17 +39,22 @@ export default {
   },
   computed: {
     tags () {
-      return this.$q.platform.is.desktop ? ['主页', '留言', '关于'] : ['', '', '']
+      return this.$q.platform.is.desktop ? ['主页', '留言', '关于', '友链'] : ['', '', '', '']
     },
     fontsize () {
-      return this.$q.platform.is.desktop ? { 'font-size': 1.2 + 'rem' } : { 'font-size': 1 + 'rem' }
+      return this.$q.platform.is.desktop ? 'pc-font-size' : 'no-pc-font-size'
+    },
+    iconSize () {
+      return this.$q.platform.is.desktop ? 'lg' : 'md'
     }
   },
   methods: {
-    openURL
   }
 }
 </script>
 
-<style lang="stylus">
+<style>
+  .icon-padding{
+    padding: 4px 8px;
+  }
 </style>
