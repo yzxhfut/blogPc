@@ -1,34 +1,27 @@
 <template>
-    <q-page style="padding: 0.5rem;">
-      <div class="row justify-center items-start margin-bottom">
+    <q-page style="padding: 0.5rem;" :style-fn="getHeight">
+      <div class="row justify-center items-start margin-bottom" ref="t" >
         <q-card bordered class="my-card" :class="width">
           <q-toolbar class="bg-white text-black">
             <div class="card-title">文章分类</div>
           </q-toolbar>
           <q-separator />
           <q-card-section>
-            <q-chip clickable color="primary" text-color="white" label="javascript" />
-            <q-chip clickable color="teal" text-color="white" label="vue"/>
-            <q-chip clickable color="orange" text-color="white" label="fabric"/>
-            <q-chip clickable color="red" text-color="white" label="nodejs" />
-            <q-chip clickable color="deep-orange" text-color="white" label="linux"/>
-            <q-chip clickable color="teal" text-color="white" label="数据库"/>
+            <q-chip v-for="(tag, index) in tagList" clickable color="primary" text-color="white" :label="tag.tagName" :key="index"/>
           </q-card-section>
         </q-card>
       </div>
 
-      <div class="row justify-center ">
+      <div class="row justify-center" :style="minHeight">
         <q-card bordered class="my-card" :class="width">
           <q-toolbar class="bg-white text-black">
             <div class="card-title">文章列表</div>
           </q-toolbar>
           <q-separator />
           <q-card-section>
-            <q-list :class="fontsize" v-for="article in currentArticles" :key="article.id">
+            <q-list :class="fontsize" v-for="(article, index) in currentArticles" :key="index">
               <q-item>
-                <q-item-section class="item-row">
-                    <q-item-label @click="test(article.id)" class="title">{{article.content}}{{article.id}}</q-item-label>
-                </q-item-section>
+                <div @click="test(article.objectId)" class="title">{{article.title}}</div>
               </q-item>
               <q-item class="row justify-between items-center no-padding-top no-padding-bottom no-min-height">
                 <div>
@@ -69,54 +62,25 @@
 </style>
 
 <script>
+import { dom } from 'quasar'
+const { height } = dom
 export default {
   name: 'PageIndex',
   data () {
     return {
+      height: 0,
+      tagheight: 0,
+      tagList: null,
       currentPage: 1,
-      pageSize: 20,
-      articles: [
-        { content: '批量下载QQ空间相册的若干方法批量下载QQ空间相册的若干方法', id: 1 },
-        { content: '批量下载QQ空间相册的若干方法批量下载QQ空间相册的若干方法', id: 2 },
-        { content: '批量下载QQ空间相册的若干方法批量下载QQ空间相册的若干方法', id: 3 },
-        { content: '批量下载QQ空间相册的若干方法批量下载QQ空间相册的若干方法', id: 4 },
-        { content: '批量下载QQ空间相册的若干方法批量下载QQ空间相册的若干方法', id: 5 },
-        { content: '批量下载QQ空间相册的若干方法批量下载QQ空间相册的若干方法', id: 6 },
-        { content: '批量下载QQ空间相册的若干方法批量下载QQ空间相册的若干方法', id: 7 },
-        { content: '批量下载QQ空间相册的若干方法批量下载QQ空间相册的若干方法', id: 8 },
-        { content: '批量下载QQ空间相册的若干方法批量下载QQ空间相册的若干方法', id: 9 },
-        { content: '批量下载QQ空间相册的若干方法批量下载QQ空间相册的若干方法', id: 10 },
-        { content: '批量下载QQ空间相册的若干方法批量下载QQ空间相册的若干方法', id: 11 },
-        { content: '批量下载QQ空间相册的若干方法批量下载QQ空间相册的若干方法', id: 12 },
-        { content: '批量下载QQ空间相册的若干方法批量下载QQ空间相册的若干方法', id: 13 },
-        { content: '批量下载QQ空间相册的若干方法批量下载QQ空间相册的若干方法', id: 14 },
-        { content: '批量下载QQ空间相册的若干方法批量下载QQ空间相册的若干方法', id: 15 },
-        { content: '批量下载QQ空间相册的若干方法批量下载QQ空间相册的若干方法', id: 16 },
-        { content: '批量下载QQ空间相册的若干方法批量下载QQ空间相册的若干方法', id: 17 },
-        { content: '批量下载QQ空间相册的若干方法批量下载QQ空间相册的若干方法', id: 18 },
-        { content: '批量下载QQ空间相册的若干方法批量下载QQ空间相册的若干方法', id: 19 },
-        { content: '批量下载QQ空间相册的若干方法批量下载QQ空间相册的若干方法', id: 20 },
-        { content: '批量下载QQ空间相册的若干方法批量下载QQ空间相册的若干方法', id: 21 },
-        { content: '批量下载QQ空间相册的若干方法批量下载QQ空间相册的若干方法', id: 22 },
-        { content: '批量下载QQ空间相册的若干方法批量下载QQ空间相册的若干方法', id: 23 },
-        { content: '批量下载QQ空间相册的若干方法批量下载QQ空间相册的若干方法', id: 24 },
-        { content: '批量下载QQ空间相册的若干方法批量下载QQ空间相册的若干方法', id: 25 },
-        { content: '批量下载QQ空间相册的若干方法批量下载QQ空间相册的若干方法', id: 26 },
-        { content: '批量下载QQ空间相册的若干方法批量下载QQ空间相册的若干方法', id: 27 },
-        { content: '批量下载QQ空间相册的若干方法批量下载QQ空间相册的若干方法', id: 28 },
-        { content: '批量下载QQ空间相册的若干方法批量下载QQ空间相册的若干方法', id: 29 },
-        { content: '批量下载QQ空间相册的若干方法批量下载QQ空间相册的若干方法', id: 30 },
-        { content: '批量下载QQ空间相册的若干方法批量下载QQ空间相册的若干方法', id: 31 },
-        { content: '批量下载QQ空间相册的若干方法批量下载QQ空间相册的若干方法', id: 32 },
-        { content: '批量下载QQ空间相册的若干方法批量下载QQ空间相册的若干方法', id: 33 },
-        { content: '批量下载QQ空间相册的若干方法批量下载QQ空间相册的若干方法', id: 34 },
-        { content: '批量下载QQ空间相册的若干方法批量下载QQ空间相册的若干方法', id: 35 },
-        { content: '批量下载QQ空间相册的若干方法批量下载QQ空间相册的若干方法', id: 36 }
-      ],
+      pageSize: 10,
+      articles: [],
       currentArticles: []
     }
   },
   computed: {
+    minHeight () {
+      return { 'min-height': this.height }
+    },
     width () {
       return this.$q.platform.is.desktop ? 'col-6' : 'col-12'
     },
@@ -130,7 +94,14 @@ export default {
       return Math.ceil(this.articles.length / this.pageSize)
     }
   },
+  mounted () {
+    this.tagheight = this.$refs.t.offsetHeight
+    console.log(this.tagheight)
+  },
   methods: {
+    getHeight (offset) {
+      this.height = `calc(100vh - 1.5rem - 2.5rem - ${offset}px - ${this.tagheight}px)`
+    },
     test (id) {
       this.$router.push('/article/' + id)
     },
@@ -141,12 +112,32 @@ export default {
           this.currentArticles.push(this.articles[i])
         }
       }
+      document.documentElement.scrollTop = 0
     }
   },
   created () {
-    for (let i = (this.currentPage - 1) * this.pageSize; i < this.currentPage * this.pageSize; i++) {
-      this.currentArticles.push(this.articles[i])
-    }
+    var that = this
+    getTag(this).then(function (res) {
+      that.tagList = res
+    })
+    getArticle(this).then(function (res) {
+      that.articles = res
+      for (let i = (that.currentPage - 1) * that.pageSize; i < that.currentPage * that.pageSize; i++) {
+        if (i < that.articles.length) {
+          that.currentArticles.push(that.articles[i])
+        }
+      }
+    })
   }
+}
+async function getTag (context) {
+  const query = context.Bmob.Query('tag')
+  var res = await query.find()
+  return res
+}
+async function getArticle (context) {
+  const query = context.Bmob.Query('article')
+  var res = await query.find()
+  return res
 }
 </script>

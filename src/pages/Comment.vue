@@ -169,6 +169,7 @@ export default {
           this.currentComments.push(this.comments[i])
         }
       }
+      document.documentElement.scrollTop = 0
     }
   },
   created () {
