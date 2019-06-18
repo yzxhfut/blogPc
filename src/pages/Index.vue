@@ -1,5 +1,5 @@
 <template>
-    <q-page class="padding-bottom padding-top">
+    <q-page style="padding: 0.5rem;">
       <div class="row justify-center items-start margin-bottom">
         <q-card bordered class="my-card" :class="width">
           <q-toolbar class="bg-white text-black">
@@ -25,16 +25,17 @@
           <q-separator />
           <q-card-section>
             <q-list :class="fontsize" v-for="article in currentArticles" :key="article.id">
-              <q-item >
+              <q-item>
                 <q-item-section class="item-row">
                     <q-item-label @click="test(article.id)" class="title">{{article.content}}{{article.id}}</q-item-label>
-                    <q-chip :dense="!pc" clickable color="bookmark" text-color="black" label="javascript" />
-                    <q-chip :dense="!pc" clickable color="bookmark" text-color="black" label="vue" />
                 </q-item-section>
-
-               <q-item-section side :top="!pc" class="no-padding-left">
-                  <q-item-label>2019-5-26</q-item-label>
-               </q-item-section>
+              </q-item>
+              <q-item class="row justify-between items-center no-padding-top no-padding-bottom no-min-height">
+                <div>
+                  <q-chip :dense="!pc" clickable color="bookmark" text-color="black" label="javascript" />
+                  <q-chip :dense="!pc" clickable color="bookmark" text-color="black" label="vue" />
+                </div>
+                <div>2019-5-26</div>
               </q-item>
               <q-separator spaced inset />
             </q-list>
@@ -117,7 +118,7 @@ export default {
   },
   computed: {
     width () {
-      return this.$q.platform.is.desktop ? 'col-6' : 'col-11'
+      return this.$q.platform.is.desktop ? 'col-6' : 'col-12'
     },
     pc () {
       return this.$q.platform.is.desktop

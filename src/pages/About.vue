@@ -1,5 +1,5 @@
 <template>
-    <q-page class="padding-bottom padding-top">
+    <q-page style="padding: 0.5rem;">
       <div class="row justify-center items-start margin-bottom">
         <q-card bordered class="my-card" :class="width">
           <q-toolbar class="bg-white text-black">
@@ -60,7 +60,7 @@ export default {
   name: 'PageAbout',
   computed: {
     width () {
-      return this.$q.platform.is.desktop ? 'col-6' : 'col-11'
+      return this.$q.platform.is.desktop ? 'col-6' : 'col-12'
     },
     fontsize () {
       return this.$q.platform.is.desktop ? 'pc-font-size' : 'no-pc-font-size'
