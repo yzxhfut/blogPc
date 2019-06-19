@@ -46,18 +46,28 @@ module.exports = function (ctx) {
         'QSeparator',
         'QInput',
         'QAvatar',
-        'QPagination'
+        'QPagination',
+        'QPageScroller',
+        'QDialog',
+        'QPageSticky',
+        'QFab',
+        'QFabAction'
       ],
 
       directives: [
-        'Ripple'
+        'Ripple',
+        'ClosePopup'
       ],
 
       // Quasar plugins
       plugins: [
         'Notify',
-        'Dialog'
-      ]
+        'Dialog',
+        'Loading'
+      ],
+      config: {
+        loading: { /* Loading defaults */ }
+      }
 
       // iconSet: 'ionicons-v4'
       // lang: 'de' // Quasar language

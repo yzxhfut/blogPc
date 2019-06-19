@@ -1,32 +1,32 @@
 <template>
-    <q-page style="padding: 0.5rem;" :style-fn="getHeight">
-      <div class="row justify-center items-start margin-bottom" ref="t" >
-        <q-card bordered class="my-card" :class="width">
-          <q-toolbar class="bg-white text-black">
-            <div class="card-title">文章分类</div>
+    <q-page style='padding: 0.5rem;' :style-fn='getHeight'>
+      <div class='row justify-center items-start margin-bottom' ref='t' >
+        <q-card bordered class='my-card' :class='width'>
+          <q-toolbar class='bg-white text-black'>
+            <div class='card-title'>文章分类</div>
           </q-toolbar>
           <q-separator />
           <q-card-section>
-            <q-chip v-for="(tag, index) in tagList" clickable color="primary" text-color="white" :label="tag.tagName" :key="index"/>
+            <q-chip clickable color='primary' text-color='white' label='全部' @click="getArticleByTag('')" />
+            <q-chip v-for='(tag, index) in tagList' clickable color='primary' text-color='white' :label='tag.tagName' :key='index' @click="getArticleByTag(tag.tagName)" />
           </q-card-section>
         </q-card>
       </div>
 
-      <div class="row justify-center" :style="minHeight">
-        <q-card bordered class="my-card" :class="width">
-          <q-toolbar class="bg-white text-black">
-            <div class="card-title">文章列表</div>
+      <div class='row justify-center' :style='minHeight'>
+        <q-card bordered class='my-card' :class='width'>
+          <q-toolbar class='bg-white text-black'>
+            <div class='card-title'>文章列表</div>
           </q-toolbar>
           <q-separator />
           <q-card-section>
-            <q-list :class="fontsize" v-for="(article, index) in currentArticles" :key="index">
+            <q-list :class='fontsize' v-for='(article, index) in currentArticles' :key='index'>
               <q-item>
-                <div @click="test(article.objectId)" class="title">{{article.title}}</div>
+                <div @click='getArticleById(article.objectId)' class='title'>{{article.title}}</div>
               </q-item>
-              <q-item class="row justify-between items-center no-padding-top no-padding-bottom no-min-height">
+              <q-item class='row justify-between items-center no-padding-top no-padding-bottom no-min-height'>
                 <div>
-                  <q-chip :dense="!pc" clickable color="bookmark" text-color="black" label="javascript" />
-                  <q-chip :dense="!pc" clickable color="bookmark" text-color="black" label="vue" />
+                  <q-chip v-for='(tag, tagIndex) in article.tag' :dense='!pc' clickable color='bookmark' text-color='black' :label='tag' :key='tagIndex'/>
                 </div>
                 <div>2019-5-26</div>
               </q-item>
@@ -34,13 +34,13 @@
             </q-list>
           </q-card-section>
           <q-pagination
-            v-if="articles.length > pageSize"
-            class="flex-center margin-bottom"
-            size="1rem"
-            v-model="currentPage"
-            :max="maxPage"
-            :max-pages="pageSize"
-            @input="pageChange"
+            v-if='articles.length > pageSize'
+            class='flex-center margin-bottom'
+            size='1rem'
+            v-model='currentPage'
+            :max='maxPage'
+            :max-pages='pageSize'
+            @input='pageChange'
             >
           </q-pagination>
         </q-card>
@@ -48,7 +48,7 @@
     </q-page>
 </template>
 
-<style lang="stylus">
+<style lang='stylus'>
   .item-row
     flex-direction row
     align-items center
@@ -96,14 +96,27 @@ export default {
   },
   mounted () {
     this.tagheight = this.$refs.t.offsetHeight
-    console.log(this.tagheight)
   },
   methods: {
     getHeight (offset) {
-      this.height = `calc(100vh - 1.5rem - 2.5rem - ${offset}px - ${this.tagheight}px)`
+      this.height = `calc(100vh - 1.5rem - ${offset}px - ${this.tagheight}px)`
     },
-    test (id) {
-      this.$router.push('/article/' + id)
+    getArticleByTag (tag) {
+      var that = this
+      that.currentArticles = []
+      _getArticleByTag(that, tag).then(function (res) {
+        that.currentArticles = res
+      })
+    },
+    getArticleById (id) {
+      var that = this
+      that.$q.loading.show()
+      _getArticleByid(this, id).then(function (res) {
+        window.sessionStorage.setItem('content', res[0].content)
+        window.sessionStorage.setItem('title', res[0].title)
+        that.$q.loading.hide()
+        that.$router.push('/article/' + id)
+      })
     },
     pageChange (page) {
       this.currentArticles = []
@@ -137,6 +150,23 @@ async function getTag (context) {
 }
 async function getArticle (context) {
   const query = context.Bmob.Query('article')
+  var res = await query.find()
+  /*  var tt = await query.get('1a4e9a21bc')
+  tt.add('tag', ['public'])
+  tt.save() */
+  return res
+}
+async function _getArticleByid (context, id) {
+  const query = context.Bmob.Query('article')
+  query.equalTo('objectId', '==', id)
+  var res = await query.find()
+  return res
+}
+async function _getArticleByTag (context, tag) {
+  const query = context.Bmob.Query('article')
+  if (tag !== '') {
+    query.containedIn('tag', [tag])
+  }
   var res = await query.find()
   return res
 }
