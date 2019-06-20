@@ -62,8 +62,6 @@
 </style>
 
 <script>
-import { dom } from 'quasar'
-const { height } = dom
 export default {
   name: 'PageIndex',
   data () {
@@ -145,6 +143,7 @@ export default {
 }
 async function getTag (context) {
   const query = context.Bmob.Query('tag')
+  query.order('tagName')
   var res = await query.find()
   return res
 }

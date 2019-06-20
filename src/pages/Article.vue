@@ -79,10 +79,4 @@ export default {
     that.title = window.sessionStorage.getItem('title')
   }
 }
-async function getArticle (context) {
-  const query = context.Bmob.Query('article')
-  query.equalTo('objectId', '==', context.$route.params.id)
-  var res = await query.find()
-  return res
-}
 </script>
