@@ -16,19 +16,19 @@
                   </q-item-section>
                   <q-item-section>{{comment.name}}</q-item-section>
                   <q-item-section side>
-                     <q-item-label>{{comment.createdAt}}</q-item-label>
+                     <q-item-label>{{comment.createdAt.split(' ')[0]}}</q-item-label>
                   </q-item-section>
                 </q-item>
-                <q-item class="no-padding-bottom">
+                <q-item class="no-padding-bottom row items-center">
                   <q-item-label>{{comment.content}}</q-item-label>
                 </q-item>
                 <div v-if="comment.replyTag" style="padding: 0.5rem 0;">
                   <div class="row" v-for="(_reply, index) in comment.comment" :key="index">
                     <div class="col-2"></div>
-                    <div class="col-10 column" style="border-top: #CBCBCB solid 1px;border-bottom: #CBCBCB solid 1px;padding: 0.5rem;">
+                    <div class="col-10 column commentBorder">
                       <div class="row">{{_reply.name}} : {{_reply.content}}</div>
                       <div class="row justify-end items-center">
-                        <div style="margin-right: 0.25rem;">2019-5-26</div>
+                        <div class="text-grey-7" style="margin-right: 0.25rem;">{{_reply.date}}</div>
                         <!-- <div><q-chip dense clickable color="bookmark" text-color="black" label="回复" style="font-size: 0.8rem;"/></div> -->
                       </div>
                     </div>
@@ -37,7 +37,7 @@
                 <q-item class="items-end row justify-end no-padding-top no-min-height">
                   <q-chip v-if="comment.comment && comment.comment.length!==0 && !comment.replyTag" :dense="!pc" icon="visibility" clickable color="bookmark" text-color="black" label="更多" @click="comment.replyTag=!comment.replyTag"/>
                   <q-chip v-if="comment.replyTag" :dense="!pc" icon="arrow_drop_up" clickable color="bookmark" text-color="black" label="收起" @click="comment.replyTag=!comment.replyTag"/>
-                  <q-chip :dense="!pc" icon="create" clickable color="bookmark" text-color="black" label="回复" @click="writeReplyTag(comment.name)" />
+                  <q-chip :dense="!pc" icon="create" clickable color="bookmark" text-color="black" label="回复" @click="writeReplyTag(comment.name, comment.objectId)" />
                 </q-item>
                 <q-separator />
               </q-list>
@@ -72,9 +72,9 @@
               style="padding-bottom: 0;"
             />
           </q-card-section>
-          <q-card-actions align="right">
+          <q-card-section align="right">
              <q-btn color="primary" label="提 交" class="right" style="margin: 0 1rem 1rem 0;" v-close-popup @click="writeComment"/>
-          </q-card-actions>
+          </q-card-section>
         </q-card>
       </q-dialog>
       <q-page-sticky :position="position" :offset="offset">
@@ -83,7 +83,7 @@
     </q-page>
 </template>
 
-<style>
+<style scoped>
   .right{
     float: right;
   }
@@ -97,17 +97,23 @@
     border: 1px solid #cbcbcb;
     margin-bottom: 15px;
   }
+  .commentBorder{
+    border-top: #CBCBCB solid 1px;
+    padding: 0.5rem;
+  }
 </style>
+<style></style>
 
 <script>
 export default {
-  name: 'PageAbout',
+  name: 'PageComment',
   data () {
     return {
       pageHeight: null,
       pageWidth: null,
       commitDialog: false,
       replyTitle: '写留言',
+      replyId: null,
       name: null,
       content: null,
       currentPage: 1,
@@ -144,24 +150,21 @@ export default {
     }
   },
   methods: {
-    writeReplyTag (name) {
+    writeReplyTag (name, id) {
       this.commitDialog = true
       this.replyTitle = '回复 ' + name
+      this.replyId = id
     },
     writeComment () {
-      const query = this.Bmob.Query('comment')
-      query.set('name', this.name)
-      query.set('content', this.content)
-      query.save().then(res => {
-        this.commitDialog = false
-        this.$q.dialog({
-          title: '提示',
-          message: '留言成功',
-          ok: '确定'
-        })
-      }).catch(err => {
-        console.log(err)
-      })
+      if (checkInput(this, this.name, this.content)) {
+        if (this.replyTitle === '写留言') {
+          writeCommentToBmob(this)
+        } else {
+          writeReplyToBmob(this, this.replyId)
+        }
+      }
+      this.name = null
+      this.content = null
     },
     writeCommentTag () {
       this.commitDialog = true
@@ -198,22 +201,80 @@ export default {
     this.pageWidth = this.$refs.tt.offsetWidth
   },
   created () {
-    var that = this
-    _getComment(that).then(function (res) {
-      that.comments = res
-      for (let i = (that.currentPage - 1) * that.pageSize; i < that.currentPage * that.pageSize; i++) {
-        if (i < that.comments.length) {
-          that.currentComments.push(that.comments[i])
-          that.lookReply.push(false)
-        }
-      }
-    })
+    getComment(this)
   }
 }
-async function _getComment (context) {
+function checkInput (context, name, content) {
+  if (!name || !content) {
+    context.$q.dialog({
+      title: '提示',
+      message: '输入不能为空',
+      ok: '确定'
+    })
+    return false
+  }
+  return true
+}
+async function getCommentFromBmob (context) {
   const query = context.Bmob.Query('comment')
   query.order('-createdAt')
   var res = await query.find()
   return res
+}
+function getComment (context) {
+  context.currentComments = []
+  context.lookReply = []
+  getCommentFromBmob(context).then(function (res) {
+    context.comments = res
+    for (let i = (context.currentPage - 1) * context.pageSize; i < context.currentPage * context.pageSize; i++) {
+      if (i < context.comments.length) {
+        context.currentComments.push(context.comments[i])
+        context.lookReply.push(false)
+      }
+    }
+  })
+}
+function writeCommentToBmob (context, msg) {
+  const query = context.Bmob.Query('comment')
+  query.set('name', context.name)
+  query.set('content', context.content)
+  query.save().then(res => {
+    context.commitDialog = false
+    context.$q.dialog({
+      title: '提示',
+      message: '留言成功',
+      ok: '确定'
+    }).onOk(() => {
+      getComment(context)
+      document.documentElement.scrollTop = 0
+    })
+  }).catch(err => {
+    console.log(err)
+  })
+}
+function writeReplyToBmob (context, id) {
+  const query = context.Bmob.Query('comment')
+  var date = new Date()
+  let data = {
+    'name': context.name,
+    'content': context.content,
+    'date': date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate()
+  }
+  query.get(id).then(res => {
+    res.add('comment', [data])
+    res.save().then(res => {
+      context.commitDialog = false
+      context.$q.dialog({
+        title: '提示',
+        message: '回复成功',
+        ok: '确定'
+      }).onOk(() => {
+        getComment(context)
+        document.documentElement.scrollTop = 0
+      })
+    }).catch(err => {
+      console.log(err)
+    })
+  })
 }
 </script>

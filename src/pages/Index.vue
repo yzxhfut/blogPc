@@ -150,9 +150,6 @@ async function getTag (context) {
 async function getArticle (context) {
   const query = context.Bmob.Query('article')
   var res = await query.find()
-  /*  var tt = await query.get('1a4e9a21bc')
-  tt.add('tag', ['public'])
-  tt.save() */
   return res
 }
 async function _getArticleByid (context, id) {
