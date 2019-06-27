@@ -74,6 +74,7 @@ module.exports = function (ctx) {
     },
 
     supportIE: false,
+    preFetch: false,
 
     build: {
       scopeHoisting: true,

@@ -194,7 +194,8 @@ export default {
           this.lookReply.push(false)
         }
       }
-      document.documentElement.scrollTop = 0
+      // document.documentElement.scrollTop = 0
+      window.scrollTo(0, 0)
     }
   },
   mounted () {

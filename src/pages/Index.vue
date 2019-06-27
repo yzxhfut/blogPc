@@ -28,7 +28,7 @@
                 <div>
                   <q-chip v-for='(tag, tagIndex) in article.tag' :dense='!pc' clickable color='bookmark' text-color='black' :label='tag' :key='tagIndex'/>
                 </div>
-                <div>2019-5-26</div>
+                <div>{{article.createdAt.split(' ')[0]}}</div>
               </q-item>
               <q-separator spaced inset />
             </q-list>
@@ -112,6 +112,7 @@ export default {
       _getArticleByid(this, id).then(function (res) {
         window.sessionStorage.setItem('content', res[0].content)
         window.sessionStorage.setItem('title', res[0].title)
+        window.sessionStorage.setItem('date', res[0].createdAt)
         that.$q.loading.hide()
         that.$router.push('/article/' + id)
       })
@@ -149,6 +150,7 @@ async function getTag (context) {
 }
 async function getArticle (context) {
   const query = context.Bmob.Query('article')
+  query.order('-createdAt')
   var res = await query.find()
   return res
 }

@@ -7,10 +7,8 @@
           </q-toolbar>
           <q-separator />
           <q-card-section :class="fontsize">
-            Hello 陌生人，欢迎访问 yzx Blog !<br/>该博客托管于 GitHub Page，
-            国内默认解析到腾讯云，以保证国内外的访问速度。留言页面使用的是 Bmob 云的免费套餐，
-            另外使用的腾讯的 MTA 分析工具统计访问量主题使自己写的，见yzx-blog，欢迎 Star
-            和 Fork。另喜欢本博客的欢迎添加友链，在留言板留言即可，我会第一时间处理，就是这样。
+            Hello 陌生人，欢迎访问 yzx'Blog !<br/>
+            该博客托目前管于 GitHub Pages，后端使用的是 Bmob 云。另外访问量统计使用的腾讯的 MTA 分析工具。主题是自己写的，项目代码托管在github，欢迎 Star和 Fork。另喜欢本博客的欢迎添加友链，在留言板留言即可，我会第一时间处理，就是这样。
           </q-card-section>
         </q-card>
       </div>
@@ -23,11 +21,13 @@
           <q-separator />
           <q-card-section :class="fontsize">
             <ul class="ul-padding">
-              <li>熟悉 JavaScript 语言， 熟练使用 Vue 全家桶,jQuery 等前端框架</li>
-              <li>熟悉 Java，NodeJs,Go 等后端语言</li>
-              <li>数据库方面能熟练使用 MySQL,Oracle，MongoDB</li>
+              <li>熟悉 JavaScript 语言，熟练使用 Vue 全家桶</li>
+              <li>熟练使用 quasar 脚手架</li>
+              <li>了解 Java，NodeJs,Php 等后端语言</li>
+              <li>数据库方面能简单使用 MySQL,MongoDB</li>
               <li>Linux 的简单使用，各种服务的搭建</li>
-              <li>能够使用 Git/SVN 对代码版本进行控制</li>
+              <li>能够熟练使用 Git</li>
+              <li>做过基于区块链的Dapp</li>
             </ul>
           </q-card-section>
         </q-card>

@@ -5,7 +5,7 @@
           <q-card-section class="text-center">
             <div :class="titleSize" style="padding: 1rem 0;">{{title}}</div>
             <div>
-              <q-chip dense color="bookmark" icon="today" text-color="black" label="2019-5-28" :style="iconFontSize"/>
+              <q-chip dense color="bookmark" icon="today" text-color="black" :label="date" :style="iconFontSize"/>
               <q-chip dense color="bookmark" icon="visibility" text-color="black" label="66" :style="iconFontSize"/>
             </div>
           </q-card-section>
@@ -20,7 +20,7 @@
     </q-page>
 </template>
 
-<style lang="stylus">
+<style lang="stylus" scoped>
   .ul-padding
     margin 0
     -webkit-padding-start 20px
@@ -28,6 +28,11 @@
    font-size 2rem
   .icon-font-size
    font-size 1rem
+</style>
+
+<style lang="stylus">
+  .markdown-body pre
+    background-color #BFE0FB !important
 </style>
 
 <script>
@@ -39,6 +44,7 @@ export default {
       pageWidth: null,
       content: null,
       title: null,
+      date: null,
       defaultData: 'preview'
     }
   },
@@ -71,12 +77,9 @@ export default {
     this.pageWidth = this.$refs.tt.offsetWidth
   },
   created () {
-    var that = this
-    // getArticle(this).then(function (res) {
-    //   that.value = res[0]
-    // })
-    that.content = window.sessionStorage.getItem('content')
-    that.title = window.sessionStorage.getItem('title')
+    this.content = window.sessionStorage.getItem('content')
+    this.title = window.sessionStorage.getItem('title')
+    this.date = window.sessionStorage.getItem('date').split(' ')[0]
   }
 }
 </script>

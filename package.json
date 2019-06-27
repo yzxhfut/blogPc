@@ -1,8 +1,8 @@
 {
   "name": "blog",
   "version": "0.0.1",
-  "description": "A Quasar Framework app",
-  "productName": "Quasar App",
+  "description": "个人博客",
+  "productName": "前端之路",
   "cordovaId": "org.cordova.quasar.app",
   "author": "yzxhfut <yzxhfut@qq.com>",
   "private": true,
