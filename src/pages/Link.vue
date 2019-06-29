@@ -28,13 +28,13 @@
               </q-item>
 
               <q-separator />
-              <q-item clickable v-ripple @click="jump('https://lutaonan.com/')">
+              <q-item clickable v-ripple @click="jump('https://www.bboysoul.com/')">
                 <q-item-section avatar>
                   <q-avatar square>
-                    <img src="https://bstatic.djyde.com/assets/006tKfTcgy1fkuuijv4pwj30ku0na3zq.jpg">
+                    <img src="https://www.bboysoul.com/img/blog/head.png">
                   </q-avatar>
                 </q-item-section>
-                <q-item-section>Randy's blog</q-item-section>
+                <q-item-section>Bboysoul blog</q-item-section>
               </q-item>
 
               <q-separator />

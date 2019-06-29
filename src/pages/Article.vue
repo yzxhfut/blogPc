@@ -5,8 +5,8 @@
           <q-card-section class="text-center">
             <div :class="titleSize" style="padding: 1rem 0;">{{title}}</div>
             <div>
-              <q-chip dense color="bookmark" icon="today" text-color="black" :label="date" :style="iconFontSize"/>
-              <q-chip dense color="bookmark" icon="visibility" text-color="black" label="66" :style="iconFontSize"/>
+              <q-chip dense color="bookmark" icon="mdi-calendar" text-color="black" :label="date" :style="iconFontSize"/>
+              <q-chip dense color="bookmark" icon="mdi-eye" text-color="black" label="66" :style="iconFontSize"/>
             </div>
           </q-card-section>
           <q-card-section :class="fontsize">
@@ -15,7 +15,7 @@
         </q-card>
       </div>
       <q-page-scroller position="bottom-right" :scroll-offset="150" :offset="offset" style="position: absolute;z-index: 9999;">
-        <q-btn fab icon="keyboard_arrow_up" color="primary"/>
+        <q-btn fab icon="mdi-rocket" color="primary" style="transform:rotate(-45deg);"/>
       </q-page-scroller>
     </q-page>
 </template>

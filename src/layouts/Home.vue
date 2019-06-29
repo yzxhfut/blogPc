@@ -3,15 +3,12 @@
     <q-header elevated>
       <q-toolbar class="bg-primary text-white ">
         <div v-if="pc" class="col-3"></div>
-        <q-avatar>
-          <img src="statics/icons/favicon-32x32.png">
-        </q-avatar>
         <q-toolbar-title>yzxBlog</q-toolbar-title>
 
-        <q-btn flat :label="tags[0]" class="icon-padding" icon="home" :size="iconSize" to="/"/>
-        <q-btn flat :label="tags[1]" class="icon-padding" icon="notes" :size="iconSize" to="/comment" />
-        <q-btn flat :label="tags[2]" class="icon-padding" icon="whatshot" :size="iconSize" to="/about"/>
-        <q-btn flat :label="tags[3]" class="icon-padding" icon="near_me" :size="iconSize" to="/link" />
+        <q-btn flat :label="tags[0]" class="icon-padding" icon="mdi-home" :size="iconSize" to="/"/>
+        <q-btn flat :label="tags[1]" class="icon-padding" icon="mdi-chat-processing" :size="iconSize" to="/comment" />
+        <q-btn flat :label="tags[2]" class="icon-padding" icon="mdi-fire" :size="iconSize" to="/about"/>
+        <q-btn flat :label="tags[3]" class="icon-padding" icon="mdi-near-me" :size="iconSize" to="/link" />
         <div v-if="pc" class="col-3"/>
       </q-toolbar>
     </q-header>

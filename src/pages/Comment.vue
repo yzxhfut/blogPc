@@ -11,7 +11,7 @@
                 <q-item class="no-padding-bottom">
                   <q-item-section avatar>
                     <q-avatar rounded>
-                      <img src="statics/icons/favicon-32x32.png">
+                      <img style="height: 32px;width: 32px;" src="statics/app-logo-128x128.png">
                     </q-avatar>
                   </q-item-section>
                   <q-item-section>{{comment.name}}</q-item-section>
@@ -35,9 +35,9 @@
                   </div>
                 </div>
                 <q-item class="items-end row justify-end no-padding-top no-min-height">
-                  <q-chip v-if="comment.comment && comment.comment.length!==0 && !comment.replyTag" :dense="!pc" icon="visibility" clickable color="bookmark" text-color="black" label="更多" @click="comment.replyTag=!comment.replyTag"/>
-                  <q-chip v-if="comment.replyTag" :dense="!pc" icon="arrow_drop_up" clickable color="bookmark" text-color="black" label="收起" @click="comment.replyTag=!comment.replyTag"/>
-                  <q-chip :dense="!pc" icon="create" clickable color="bookmark" text-color="black" label="回复" @click="writeReplyTag(comment.name, comment.objectId)" />
+                  <q-chip v-if="comment.comment && comment.comment.length!==0 && !comment.replyTag" :dense="!pc" clickable color="bookmark" text-color="black" label="更多" @click="comment.replyTag=!comment.replyTag"/>
+                  <q-chip v-if="comment.replyTag" :dense="!pc" clickable color="bookmark" text-color="black" label="收起" @click="comment.replyTag=!comment.replyTag"/>
+                  <q-chip :dense="!pc"  clickable color="bookmark" text-color="black" label="回复" @click="writeReplyTag(comment.name, comment.objectId)" />
                 </q-item>
                 <q-separator />
               </q-list>
@@ -78,7 +78,7 @@
         </q-card>
       </q-dialog>
       <q-page-sticky :position="position" :offset="offset">
-        <q-btn fab icon="create" color="accent" @click="writeCommentTag"/>
+        <q-btn fab icon="mdi-pencil" color="primary" @click="writeCommentTag"/>
       </q-page-sticky>
     </q-page>
 </template>
