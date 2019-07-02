@@ -129,6 +129,7 @@ export default {
   },
   created () {
     var that = this
+    that.$q.loading.show()
     getTag(this).then(function (res) {
       that.tagList = res
     })
@@ -139,6 +140,7 @@ export default {
           that.currentArticles.push(that.articles[i])
         }
       }
+      that.$q.loading.hide()
     })
   }
 }
@@ -149,6 +151,7 @@ async function getTag (context) {
   return res
 }
 async function getArticle (context) {
+  context.$q.loading.show()
   const query = context.Bmob.Query('article')
   query.order('-createdAt')
   var res = await query.find()

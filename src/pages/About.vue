@@ -6,10 +6,7 @@
             <div class="card-title">关于我</div>
           </q-toolbar>
           <q-separator />
-          <q-card-section :class="fontsize">
-            Hello 陌生人，欢迎访问 yzx'Blog !<br/>
-            该博客托目前管于 GitHub Pages，后端使用的是 Bmob 云。另外访问量统计使用的腾讯的 MTA 分析工具。主题是自己写的，项目代码托管在github，欢迎 Star和 Fork。另喜欢本博客的欢迎添加友链，在留言板留言即可，我会第一时间处理，就是这样。
-          </q-card-section>
+          <q-card-section :class="fontsize" v-html="aboutMe" style="padding: 1rem 2rem;"/>
         </q-card>
       </div>
 
@@ -19,45 +16,41 @@
             <div class="card-title">技术栈</div>
           </q-toolbar>
           <q-separator />
-          <q-card-section :class="fontsize">
-            <ul class="ul-padding">
-              <li>熟悉 JavaScript 语言，熟练使用 Vue 全家桶</li>
-              <li>熟练使用 quasar 脚手架</li>
-              <li>了解 Java，NodeJs,Php 等后端语言</li>
-              <li>数据库方面能简单使用 MySQL,MongoDB</li>
-              <li>Linux 的简单使用，各种服务的搭建</li>
-              <li>能够熟练使用 Git</li>
-              <li>做过基于区块链的Dapp</li>
-            </ul>
-          </q-card-section>
+          <q-card-section :class="fontsize" v-html="techStack"/>
         </q-card>
       </div>
 
       <div class="row justify-center items-start">
-        <q-card bordered class="my-card" :class="width">
+        <q-card bordered class="my-card" :class="width" >
           <q-toolbar class="bg-white text-black">
             <div class="card-title">联系我</div>
           </q-toolbar>
           <q-separator />
-          <q-card-section :class="fontsize">
-            QQ : 1099926157<br />
-            Email : yzxhfut@qq.com<br />
-            GitHub : https://github.com/yzxhfut
-          </q-card-section>
+          <q-card-section :class="fontsize" v-html="contact" style="padding: 1rem 2rem;"/>
         </q-card>
       </div>
     </q-page>
 </template>
 
-<style lang="stylus">
-  .ul-padding
-    margin 0
-    -webkit-padding-start 20px
+<style scoped>
+
+</style>
+<style>
+  ul {
+    margin: 0;
+  }
 </style>
 
 <script>
 export default {
   name: 'PageAbout',
+  data () {
+    return {
+      aboutMe: '',
+      techStack: '',
+      contact: ''
+    }
+  },
   computed: {
     width () {
       return this.$q.platform.is.desktop ? 'col-6' : 'col-12'
@@ -65,6 +58,28 @@ export default {
     fontsize () {
       return this.$q.platform.is.desktop ? 'pc-font-size' : 'no-pc-font-size'
     }
+  },
+  created () {
+    var that = this
+    getAbout(this).then(res => {
+      that.aboutMe = res[0].aboutMe
+      that.techStack = res[0].techStack
+      that.contact = res[0].contact
+      that.$q.loading.hide()
+    }).catch(err => {
+      that.$q.loading.hide()
+      that.$q.dialog({
+        title: '提示',
+        message: err.toString(),
+        ok: '确定'
+      })
+    })
   }
+}
+async function getAbout (context) {
+  context.$q.loading.show()
+  const query = context.Bmob.Query('about')
+  var res = await query.find()
+  return res
 }
 </script>

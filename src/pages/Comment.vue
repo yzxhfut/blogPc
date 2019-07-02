@@ -24,14 +24,17 @@
                 </q-item>
                 <div v-if="comment.replyTag" style="padding: 0.5rem 0;">
                   <div class="row" v-for="(_reply, index) in comment.comment" :key="index">
-                    <div class="col-2"></div>
-                    <div class="col-10 column commentBorder">
+                    <div class="col-1"></div>
+                    <div class="col-11 column commentBorder">
                       <div class="row">{{_reply.name}} : {{_reply.content}}</div>
                       <div class="row justify-end items-center">
                         <div class="text-grey-7" style="margin-right: 0.25rem;">{{_reply.date}}</div>
-                        <!-- <div><q-chip dense clickable color="bookmark" text-color="black" label="回复" style="font-size: 0.8rem;"/></div> -->
                       </div>
                     </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-1"></div>
+                    <q-separator style="background: #CBCBCB;"></q-separator>
                   </div>
                 </div>
                 <q-item class="items-end row justify-end no-padding-top no-min-height">
@@ -194,7 +197,6 @@ export default {
           this.lookReply.push(false)
         }
       }
-      // document.documentElement.scrollTop = 0
       window.scrollTo(0, 0)
     }
   },
@@ -223,6 +225,7 @@ async function getCommentFromBmob (context) {
   return res
 }
 function getComment (context) {
+  context.$q.loading.show()
   context.currentComments = []
   context.lookReply = []
   getCommentFromBmob(context).then(function (res) {
@@ -233,13 +236,16 @@ function getComment (context) {
         context.lookReply.push(false)
       }
     }
+    context.$q.loading.hide()
   })
 }
 function writeCommentToBmob (context, msg) {
+  context.$q.loading.show()
   const query = context.Bmob.Query('comment')
   query.set('name', context.name)
   query.set('content', context.content)
   query.save().then(res => {
+    context.$q.loading.hide()
     context.commitDialog = false
     context.$q.dialog({
       title: '提示',
@@ -250,10 +256,16 @@ function writeCommentToBmob (context, msg) {
       document.documentElement.scrollTop = 0
     })
   }).catch(err => {
-    console.log(err)
+    context.$q.loading.hide()
+    context.$q.dialog({
+      title: '提示',
+      message: err.toString(),
+      ok: '确定'
+    })
   })
 }
 function writeReplyToBmob (context, id) {
+  context.$q.loading.show()
   const query = context.Bmob.Query('comment')
   var date = new Date()
   let data = {
@@ -264,6 +276,7 @@ function writeReplyToBmob (context, id) {
   query.get(id).then(res => {
     res.add('comment', [data])
     res.save().then(res => {
+      context.$q.loading.show()
       context.commitDialog = false
       context.$q.dialog({
         title: '提示',
@@ -274,7 +287,19 @@ function writeReplyToBmob (context, id) {
         document.documentElement.scrollTop = 0
       })
     }).catch(err => {
-      console.log(err)
+      context.$q.loading.hide()
+      context.$q.dialog({
+        title: '提示',
+        message: err.toString(),
+        ok: '确定'
+      })
+    })
+  }).catch(err => {
+    context.$q.loading.hide()
+    context.$q.dialog({
+      title: '提示',
+      message: err.toString(),
+      ok: '确定'
     })
   })
 }
