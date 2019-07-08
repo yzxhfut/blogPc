@@ -62,6 +62,7 @@
 </style>
 
 <script>
+import { getTag, getArticle, _getArticleByid, _getArticleByTag } from 'assets/utility.js'
 export default {
   name: 'PageIndex',
   data () {
@@ -144,31 +145,5 @@ export default {
     })
   }
 }
-async function getTag (context) {
-  const query = context.Bmob.Query('tag')
-  query.order('tagName')
-  var res = await query.find()
-  return res
-}
-async function getArticle (context) {
-  context.$q.loading.show()
-  const query = context.Bmob.Query('article')
-  query.order('-createdAt')
-  var res = await query.find()
-  return res
-}
-async function _getArticleByid (context, id) {
-  const query = context.Bmob.Query('article')
-  query.equalTo('objectId', '==', id)
-  var res = await query.find()
-  return res
-}
-async function _getArticleByTag (context, tag) {
-  const query = context.Bmob.Query('article')
-  if (tag !== '') {
-    query.containedIn('tag', [tag])
-  }
-  var res = await query.find()
-  return res
-}
+
 </script>

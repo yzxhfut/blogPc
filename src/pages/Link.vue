@@ -55,6 +55,7 @@
 
 <script>
 import { openURL } from 'quasar'
+import { getLink } from 'assets/utility.js'
 export default {
   name: 'PageAbout',
   data () {
@@ -90,11 +91,5 @@ export default {
     })
   }
 }
-async function getLink (context) {
-  context.$q.loading.show()
-  const query = context.Bmob.Query('link')
-  query.order('-createdAt')
-  var res = await query.find()
-  return res
-}
+
 </script>

@@ -42,6 +42,7 @@
 </style>
 
 <script>
+import { getAbout } from 'assets/utility.js'
 export default {
   name: 'PageAbout',
   data () {
@@ -76,10 +77,5 @@ export default {
     })
   }
 }
-async function getAbout (context) {
-  context.$q.loading.show()
-  const query = context.Bmob.Query('about')
-  var res = await query.find()
-  return res
-}
+
 </script>
