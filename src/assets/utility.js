@@ -128,6 +128,7 @@ async function _getArticleByid (context, id) {
 }
 async function _getArticleByTag (context, tag) {
   const query = context.Bmob.Query('article')
+  query.order('-createdAt')
   if (tag !== '') {
     query.containedIn('tag', [tag])
   }
