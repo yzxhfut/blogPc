@@ -1,12 +1,12 @@
 <template>
     <q-page style="padding: 0.5rem;" :style-fn="minHeight">
       <div class="row justify-center items-start margin-bottom" ref="tt">
-        <q-card bordered class="my-card" :class="width" :style="commentHeight">
+        <q-card bordered class="my-card col-8" :style="commentHeight">
           <q-toolbar class="bg-white text-black">
             <div class="card-title">留言板</div>
           </q-toolbar>
           <q-separator />
-            <q-card-section :class="fontsize">
+            <q-card-section>
               <q-list v-for="(comment, index) in currentComments" :key="index">
                 <q-item class="no-padding-bottom">
                   <q-item-section avatar>
@@ -38,9 +38,9 @@
                   </div>
                 </div>
                 <q-item class="items-end row justify-end no-padding-top no-min-height">
-                  <q-chip v-if="comment.comment && comment.comment.length!==0 && !comment.replyTag" :dense="!pc" clickable color="bookmark" text-color="black" label="更多" @click="comment.replyTag=!comment.replyTag"/>
-                  <q-chip v-if="comment.replyTag" :dense="!pc" clickable color="bookmark" text-color="black" label="收起" @click="comment.replyTag=!comment.replyTag"/>
-                  <q-chip :dense="!pc"  clickable color="bookmark" text-color="black" label="回复" @click="writeReplyTag(comment.name, comment.objectId)" />
+                  <q-chip v-if="comment.comment && comment.comment.length!==0 && !comment.replyTag" clickable color="bookmark" text-color="black" label="更多" @click="comment.replyTag=!comment.replyTag"/>
+                  <q-chip v-if="comment.replyTag" clickable color="bookmark" text-color="black" label="收起" @click="comment.replyTag=!comment.replyTag"/>
+                  <q-chip clickable color="bookmark" text-color="black" label="回复" @click="writeReplyTag(comment.name, comment.objectId)" />
                 </q-item>
                 <q-separator />
               </q-list>
@@ -59,12 +59,12 @@
       </div>
 
       <q-dialog v-model="commitDialog">
-        <q-card bordered class="my-card" :style="dialogWidth">
+        <q-card bordered class="my-card" style="min-width': '600px">
           <q-card-section class="bg-white text-black">
             <div class="text-h6">{{replyTitle}}</div>
           </q-card-section>
           <q-separator />
-          <q-card-section :class="fontsize">
+          <q-card-section>
             <q-input v-model="name" outlined maxlength='10' placeholder="昵称" />
             <q-input
               v-model="content"
@@ -80,7 +80,7 @@
           </q-card-section>
         </q-card>
       </q-dialog>
-      <q-page-sticky :position="position" :offset="offset">
+      <q-page-sticky position="bottom-right" :offset="offset">
         <q-btn fab icon="mdi-pencil" color="primary" @click="writeCommentTag"/>
       </q-page-sticky>
     </q-page>
@@ -128,29 +128,14 @@ export default {
     }
   },
   computed: {
-    width () {
-      return this.$q.platform.is.desktop ? 'col-6' : 'col-12 justify-center'
-    },
-    fontsize () {
-      return this.$q.platform.is.desktop ? 'pc-font-size' : 'no-pc-font-size'
-    },
-    pc () {
-      return this.$q.platform.is.desktop
-    },
     commentHeight () {
       return { 'min-height': this.pageHeight }
     },
     maxPage () {
       return Math.ceil(this.comments.length / this.pageSize)
     },
-    dialogWidth () {
-      return this.$q.platform.is.desktop ? { 'min-width': '600px' } : { 'min-width': this.pageWidth + 'px' }
-    },
-    position () {
-      return this.$q.platform.is.desktop ? 'bottom-right' : 'bottom-left'
-    },
     offset () {
-      return this.$q.platform.is.desktop ? [this.pageWidth / 5, 18] : [18, 18]
+      return [this.pageWidth / 10, 20]
     }
   },
   methods: {

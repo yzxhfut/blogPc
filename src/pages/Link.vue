@@ -1,12 +1,12 @@
 <template>
     <q-page style="padding: 0.5rem;">
       <div class="row justify-center items-start margin-bottom">
-        <q-card bordered class="my-card" :class="width">
+        <q-card bordered class="my-card col-8">
           <q-toolbar class="bg-white text-black">
             <div class="card-title">博客推荐</div>
           </q-toolbar>
           <q-separator />
-          <q-card-section :class="fontsize">
+          <q-card-section>
             <q-list v-for="(blog, index) in blogs" :key="index">
               <q-item clickable v-ripple @click="jump(blog.domain)">
                 <q-item-section avatar>
@@ -24,12 +24,12 @@
       </div>
 
       <div class="row justify-center items-start">
-        <q-card bordered class="my-card" :class="width">
+        <q-card bordered class="my-card col-8">
           <q-toolbar class="bg-white text-black">
             <div class="card-title">社区推荐</div>
           </q-toolbar>
           <q-separator />
-          <q-card-section :class="fontsize">
+          <q-card-section>
             <q-list v-for="(web, index) in webs" :key="index">
               <q-item clickable v-ripple @click="jump(web.domain)">
                 <q-item-section avatar>
@@ -64,14 +64,6 @@ export default {
       webs: []
     }
   },
-  computed: {
-    width () {
-      return this.$q.platform.is.desktop ? 'col-6' : 'col-12'
-    },
-    fontsize () {
-      return this.$q.platform.is.desktop ? 'pc-font-size' : 'no-pc-font-size'
-    }
-  },
   methods: {
     jump (url) {
       openURL(url)
@@ -91,5 +83,4 @@ export default {
     })
   }
 }
-
 </script>

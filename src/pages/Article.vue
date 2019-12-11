@@ -1,15 +1,12 @@
 <template>
     <q-page style="padding: 0.5rem;" :style-fn="minHeight">
       <div class="row justify-center items-center" ref='tt'>
-        <q-card bordered class="my-card" :class="width"  :style="articleHeight">
+        <q-card bordered class="my-card col-8" :style="articleHeight">
           <q-card-section class="text-center">
-            <div :class="titleSize" style="padding: 1rem 0;">{{title}}</div>
-            <div>
-              <q-chip dense color="bookmark" icon="mdi-calendar" text-color="black" :label="date" :style="iconFontSize"/>
-              <q-chip dense color="bookmark" icon="mdi-eye" text-color="black" label="66" :style="iconFontSize"/>
-            </div>
+            <div style="padding: 1rem 0;font-size: 1.3rem;">{{title}}</div>
+            <div>{{date}}</div>
           </q-card-section>
-          <q-card-section :class="fontsize">
+          <q-card-section>
             <mavon-editor v-html="content" :subfield="false" :defaultOpen="defaultData" :toolbarsFlag="false" codeStyle="dark"/>
           </q-card-section>
         </q-card>
@@ -49,23 +46,11 @@ export default {
     }
   },
   computed: {
-    width () {
-      return this.$q.platform.is.desktop ? 'col-6' : 'col-12'
-    },
-    fontsize () {
-      return this.$q.platform.is.desktop ? 'pc-font-size' : 'no-pc-font-size'
-    },
-    titleSize () {
-      return this.$q.platform.is.desktop ? 'text-h5' : 'text-h5'
-    },
-    iconFontSize () {
-      return this.$q.platform.is.desktop ? { 'font-size': 1 + 'rem' } : { 'font-size': 0.8 + 'rem' }
-    },
     articleHeight () {
       return { 'min-height': this.pageHeight }
     },
     offset () {
-      return this.$q.platform.is.desktop ? [this.pageWidth / 5, 18] : [18, 18]
+      return [this.pageWidth / 10, 18]
     }
   },
   methods: {

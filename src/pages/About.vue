@@ -1,44 +1,40 @@
 <template>
     <q-page style="padding: 0.5rem;">
       <div class="row justify-center items-start margin-bottom">
-        <q-card bordered class="my-card" :class="width">
+        <q-card bordered class="my-card col-8">
           <q-toolbar class="bg-white text-black">
             <div class="card-title">关于我</div>
           </q-toolbar>
           <q-separator />
-          <q-card-section :class="fontsize" v-html="aboutMe" style="padding: 1rem 2rem;"/>
+          <q-card-section v-html="aboutMe" style="padding: 1rem 2rem;"/>
         </q-card>
       </div>
 
       <div class="row justify-center items-start margin-bottom">
-        <q-card bordered class="my-card" :class="width">
+        <q-card bordered class="my-card col-8">
           <q-toolbar class="bg-white text-black">
             <div class="card-title">技术栈</div>
           </q-toolbar>
           <q-separator />
-          <q-card-section :class="fontsize" v-html="techStack"/>
+          <q-card-section v-html="techStack" style="padding: 1rem 2rem;"/>
         </q-card>
       </div>
 
       <div class="row justify-center items-start">
-        <q-card bordered class="my-card" :class="width" >
+        <q-card bordered class="my-card col-8">
           <q-toolbar class="bg-white text-black">
             <div class="card-title">联系我</div>
           </q-toolbar>
           <q-separator />
-          <q-card-section :class="fontsize" v-html="contact" style="padding: 1rem 2rem;"/>
+          <q-card-section v-html="contact" style="padding: 1rem 2rem;"/>
         </q-card>
       </div>
     </q-page>
 </template>
 
 <style scoped>
-
 </style>
 <style>
-  ul {
-    margin: 0;
-  }
 </style>
 
 <script>
@@ -50,14 +46,6 @@ export default {
       aboutMe: '',
       techStack: '',
       contact: ''
-    }
-  },
-  computed: {
-    width () {
-      return this.$q.platform.is.desktop ? 'col-6' : 'col-12'
-    },
-    fontsize () {
-      return this.$q.platform.is.desktop ? 'pc-font-size' : 'no-pc-font-size'
     }
   },
   created () {

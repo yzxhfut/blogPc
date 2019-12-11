@@ -1,15 +1,14 @@
 <template>
-  <q-layout view="lHh lpr fff"  >
+  <q-layout view="lHh lpr fff" style="font-size: 1.1rem;" >
     <q-header elevated>
-      <q-toolbar class="bg-primary text-white ">
-        <div v-if="pc" class="col-3"></div>
+      <q-toolbar class="bg-primary text-white">
+        <div class="col-2"></div>
         <q-toolbar-title>yzxBlog</q-toolbar-title>
-
-        <q-btn flat :label="tags[0]" class="icon-padding" icon="mdi-home" :size="iconSize" to="/"/>
-        <q-btn flat :label="tags[1]" class="icon-padding" icon="mdi-chat-processing" :size="iconSize" to="/comment" />
-        <q-btn flat :label="tags[2]" class="icon-padding" icon="mdi-fire" :size="iconSize" to="/about"/>
-        <q-btn flat :label="tags[3]" class="icon-padding" icon="mdi-near-me" :size="iconSize" to="/link" />
-        <div v-if="pc" class="col-3"/>
+        <q-btn flat :label="tags[0]" class="icon-padding" icon="mdi-home" size="lg" to="/"/>
+        <q-btn flat :label="tags[1]" class="icon-padding" icon="mdi-chat-processing" size="lg" to="/comment" />
+        <q-btn flat :label="tags[2]" class="icon-padding" icon="mdi-fire" size="lg" to="/about"/>
+        <q-btn flat :label="tags[3]" class="icon-padding" icon="mdi-near-me" size="lg" to="/link" />
+        <div class="col-2"/>
       </q-toolbar>
     </q-header>
 
@@ -19,7 +18,7 @@
 
     <q-footer elevated>
         <q-toolbar class="bg-primary text-white justify-center">
-          <q-toolbar-title shrink :class="fontsize">Copyright © 2019 皖ICP备19005672号</q-toolbar-title>
+          <q-toolbar-title shrink>Copyright © 2019 皖ICP备19005672号</q-toolbar-title>
         </q-toolbar>
     </q-footer>
   </q-layout>
@@ -31,21 +30,8 @@ export default {
   name: 'Home',
   data () {
     return {
-      pc: this.$q.platform.is.desktop
+      tags: ['主页', '留言', '关于', '友链']
     }
-  },
-  computed: {
-    tags () {
-      return this.$q.platform.is.desktop ? ['主页', '留言', '关于', '友链'] : ['', '', '', '']
-    },
-    fontsize () {
-      return this.$q.platform.is.desktop ? 'pc-font-size' : 'no-pc-font-size'
-    },
-    iconSize () {
-      return this.$q.platform.is.desktop ? 'lg' : 'md'
-    }
-  },
-  methods: {
   }
 }
 </script>
